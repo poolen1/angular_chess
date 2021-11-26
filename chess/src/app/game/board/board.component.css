@@ -1,35 +1,29 @@
 
 .chessboard {
-    width: 640px;
-    height: 640px;
-    margin: 20px;
-    border: 25px solid #333;
+    height: 592px;
+    width: 592px;
+    border-style: solid;
+  }
+
+.board-row {
+display: flex;
 }
 
-.black {
-    float: left;
-    width: 80px;
-    height: 80px;
-    background-color: #999;
-      font-size:50px;
-    text-align:center;
-    display: table-cell;
-    vertical-align:middle;
+.cdk-drag-placeholder {
+    opacity: 0;
 }
 
-.white {
-    float: left;
-    width: 80px;
-    height: 80px;
-    background-color: #fff;
-    font-size:50px;
-    text-align:center;
-    display: table-cell;
-    vertical-align:middle;
+.cdk-drag-animating {
+    transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
 }
 
-.chesspiece {
-    font-weight: 400;
-    font-size: 54px;
-    line-height: 70px;
+.chessboard.cdk-drop-list-dragging .example-box:not(.cdk-drag-placeholder) {
+    transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
 }
+
+.custom-placeholder {
+    background: #ccc;
+    border: dotted 3px #999;
+    min-height: 60px;
+    transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+  }

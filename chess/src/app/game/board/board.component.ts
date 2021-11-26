@@ -1,23 +1,9 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-
-import {
-  CdkDragDrop, moveItemInArray
-} from "@angular/cdk/drag-drop";
+import { Component, OnInit } from '@angular/core';
+import { CdkDragDrop } from "@angular/cdk/drag-drop";
 
 import { Piece } from './models/piece';
 import { Bitboard } from './models/bitboard';
-import { ViewportRuler } from '@angular/cdk/scrolling';
-
-// ======================================================================== //
-
-interface Boardspace
-{
-  piece: Piece;
-  chessRow: string;
-  chessCol: string;
-  arrayRow: number;
-  arrayCol: number;
-}
+import { BoardSpace } from './models/boardSpace';
 
 // ======================================================================== //
 
@@ -30,12 +16,14 @@ export class BoardComponent implements OnInit {
 
   gameBoard: any[];
   bitBoards: Bitboard[];
+  gamePieces: Piece[];
 
   // ======================================================================== //
 
-  constructor(private viewportRuler: ViewportRuler) { 
+  constructor() { 
     this.bitBoards = [];
     this.gameBoard = [];
+    this.gamePieces = [];
 
     this.initBitboards();
     this.initBoard();
@@ -86,9 +74,9 @@ export class BoardComponent implements OnInit {
 
   initBoard()
   {
-    let boardRow: Boardspace[];
+    let boardRow: BoardSpace[];
     let chessPiece: Piece;
-    let chessSpace: Boardspace;
+    let chessSpace: BoardSpace;
     let rowNum: number = 10;
 
     for (let i=0; i<8; i++)
@@ -96,6 +84,9 @@ export class BoardComponent implements OnInit {
       let row: string;
       rowNum = rowNum - 2;
       row = (i + rowNum).toString();
+      boardRow = [];
+
+      this.gameBoard.push(boardRow);
 
       for (let j=0; j<8; j++)
       {
@@ -105,12 +96,13 @@ export class BoardComponent implements OnInit {
         pieceName = this.checkInitialPositionForPiece(i, j);
         chessPiece = this.initPiece(pieceName, i, j);
 
-        chessSpace = { piece: chessPiece, arrayRow: i, arrayCol: j, 
-          chessRow: row, chessCol: col};
+        chessSpace = new BoardSpace(chessPiece, row, col, i, j);
 
-        this.gameBoard.push(chessSpace);
+        this.gameBoard[i].push(chessSpace);
+        this.gamePieces.push(chessPiece);
       }
     }
+
     console.log("the board: ", this.gameBoard);
   }
 
@@ -146,7 +138,7 @@ export class BoardComponent implements OnInit {
 
   // ======================================================================== //
 
-  isBlack(square: Boardspace)
+  isBlack(square: BoardSpace)
   {
     return (square.arrayRow + square.arrayCol) % 2 === 1;
   }
@@ -154,5 +146,42 @@ export class BoardComponent implements OnInit {
   // Drag/Drop
   // ======================================================================== //
 
+  drop(event: CdkDragDrop<BoardSpace>) {
+    console.log("the event: ", event);
+    if (event.isPointerOverContainer) {
+      const from: BoardSpace = event.previousContainer.data;
+      const to: BoardSpace = event.container.data;
+      if (event.previousContainer !== event.container) {
+        to.piece = from.piece;
+        from.piece = undefined;
+      } else {
+        to.piece = from.piece;
+      }
+    }
+  }
 
+  // ======================================================================== //
+
+  updateGameBoard(index: number, prevIndex: number)
+  {
+    let temp: Piece = this.gameBoard[prevIndex].piece;
+    this.gameBoard[prevIndex].piece = this.gameBoard[index].piece;
+    this.gameBoard[index].piece = temp;
+
+    this.gameBoard[index].piece.arrayRow
+      = this.gameBoard[index].arrayRow;
+    this.gameBoard[index].piece.arrayRow
+      = this.gameBoard[index].arrayRow;
+
+    this.gameBoard[prevIndex].piece.arrayRow
+      = this.gameBoard[prevIndex].arrayRow;
+    this.gameBoard[prevIndex].piece.arrayRow
+      = this.gameBoard[prevIndex].arrayRow;
+
+    console.log("the board: ", this.gameBoard);
+    console.log('the pieces: ', this.gamePieces);
+
+  }
+
+  // ======================================================================== //
 }

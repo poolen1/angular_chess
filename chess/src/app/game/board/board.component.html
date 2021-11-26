@@ -1,14 +1,8 @@
-<div class="chessboard">
-    <div *ngFor="let square of gameBoard">
-        <div *ngIf="isBlack(square)" class="black">
-            <span class="chesspiece">
-                {{ square.piece.graphic }}
-            </span>
-        </div>
-        <div *ngIf="!isBlack(square)" class="white">
-            <span class="chesspiece">
-                {{ square.piece.graphic }}
-            </span>
-        </div>
+<div class="chessboard" cdkDropListGroup>
+    <div class="board-row"
+         *ngFor="let row of [0, 1, 2, 3, 4, 5, 6, 7]">
+      <app-square *ngFor="let col of [0, 1, 2, 3, 4, 5, 6, 7]"
+                  [square]=gameBoard[row][col]></app-square>
+      <br />
     </div>
-</div>
+  </div>

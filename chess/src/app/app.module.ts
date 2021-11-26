@@ -5,19 +5,19 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { GameComponent } from './game/game.component';
 import { BoardComponent } from './game/board/board.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DragDropModule } from "@angular/cdk/drag-drop";
+import { SquareComponent } from './game/square/square.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     GameComponent,
-    BoardComponent
+    BoardComponent,
+    SquareComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    BrowserAnimationsModule,
     DragDropModule
   ],
   providers: [],

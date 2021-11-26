@@ -7,6 +7,10 @@ export class Piece {
 
     constructor (name: string, row: number, col: number)
     {
+        if (name == '0')
+        {
+            return undefined;
+        }
         this.pieceName = name;
         this.graphic = this.initGraphic(name);
         this.arrayRow = row;
@@ -19,55 +23,51 @@ export class Piece {
         
         if (name == 'P')
         {
-            pieceGraphic = '♙';
+            pieceGraphic = 'assets/wP.png';
         }
         else if (name == 'N')
         {
-            pieceGraphic = '♘';
+            pieceGraphic = 'assets/wN.png';
         }
         else if (name == 'B')
         {
-            pieceGraphic = '♗';
+            pieceGraphic = 'assets/wB.png';
         }
         else if (name == 'R')
         {
-            pieceGraphic = '♖';
+            pieceGraphic = 'assets/wR.png';
         }
         else if (name == 'K')
         {
-            pieceGraphic = '♔';
+            pieceGraphic = 'assets/wK.png';
         }
         else if (name == 'Q')
         {
-            pieceGraphic = '♕';
+            pieceGraphic = 'assets/wQ.png';
         }
         else if (name == 'p')
         {
-            pieceGraphic = '♟';
+            pieceGraphic = 'assets/bP.png';
         }
         else if (name == 'n')
         {
-            pieceGraphic = '♞';
+            pieceGraphic = 'assets/bN.png';
         }
         else if (name == 'b')
         {
-            pieceGraphic = '♝';
+            pieceGraphic = 'assets/bB.png';
         }
         else if (name == 'r')
         {
-            pieceGraphic = '♜';
+            pieceGraphic = 'assets/bR.png';
         }
         else if (name == 'k')
         {
-            pieceGraphic = '♚';
+            pieceGraphic = 'assets/bK.png';
         }
         else if (name == 'q')
         {
-            pieceGraphic = '♛';
-        }
-        else if (name == '0')
-        {
-            pieceGraphic = ' ';
+            pieceGraphic = 'assets/bQ.png';
         }
 
         return pieceGraphic;
