@@ -1,3 +1,14 @@
-<body>
-    
-</body>
+<div class="chessboard">
+    <div *ngFor="let square of gameBoard">
+        <div *ngIf="isBlack(square)" class="black">
+            <span class="chesspiece">
+                {{ square.piece.graphic }}
+            </span>
+        </div>
+        <div *ngIf="!isBlack(square)" class="white">
+            <span class="chesspiece">
+                {{ square.piece.graphic }}
+            </span>
+        </div>
+    </div>
+</div>

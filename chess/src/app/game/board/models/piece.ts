@@ -2,11 +2,15 @@
 export class Piece {
     pieceName: string;
     graphic: string;
+    arrayRow: number;
+    arrayCol: number;
 
-    constructor (name: string)
+    constructor (name: string, row: number, col: number)
     {
         this.pieceName = name;
         this.graphic = this.initGraphic(name);
+        this.arrayRow = row;
+        this.arrayCol = col;
     }
 
     initGraphic(name: string): string
@@ -15,51 +19,55 @@ export class Piece {
         
         if (name == 'P')
         {
-            pieceGraphic = '&#9817;';
+            pieceGraphic = '♙';
         }
         else if (name == 'N')
         {
-            pieceGraphic = '&#9816;';
+            pieceGraphic = '♘';
         }
         else if (name == 'B')
         {
-            pieceGraphic = '&#9815;';
+            pieceGraphic = '♗';
         }
         else if (name == 'R')
         {
-            pieceGraphic = '&#9814;';
+            pieceGraphic = '♖';
         }
         else if (name == 'K')
         {
-            pieceGraphic = '&#9812;';
+            pieceGraphic = '♔';
         }
         else if (name == 'Q')
         {
-            pieceGraphic = '&#9813;';
+            pieceGraphic = '♕';
         }
         else if (name == 'p')
         {
-            pieceGraphic = '&#9823;';
+            pieceGraphic = '♟';
         }
         else if (name == 'n')
         {
-            pieceGraphic = '&#9822;';
+            pieceGraphic = '♞';
         }
         else if (name == 'b')
         {
-            pieceGraphic = '&#9821;';
+            pieceGraphic = '♝';
         }
         else if (name == 'r')
         {
-            pieceGraphic = '&#9820;';
+            pieceGraphic = '♜';
         }
         else if (name == 'k')
         {
-            pieceGraphic = '&#9818;';
+            pieceGraphic = '♚';
         }
         else if (name == 'q')
         {
-            pieceGraphic = '&#9819;';
+            pieceGraphic = '♛';
+        }
+        else if (name == '0')
+        {
+            pieceGraphic = ' ';
         }
 
         return pieceGraphic;

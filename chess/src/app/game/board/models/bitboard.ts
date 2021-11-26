@@ -81,7 +81,7 @@ export class Bitboard {
         }
         else if (this.name == 'q')
         {
-            gameBoard[7][3] = 1;
+            gameBoard[0][3] = 1;
         }
 
         return gameBoard;

@@ -1,9 +1,11 @@
+
 .chessboard {
     width: 640px;
     height: 640px;
     margin: 20px;
     border: 25px solid #333;
 }
+
 .black {
     float: left;
     width: 80px;
@@ -14,6 +16,7 @@
     display: table-cell;
     vertical-align:middle;
 }
+
 .white {
     float: left;
     width: 80px;
@@ -23,4 +26,10 @@
     text-align:center;
     display: table-cell;
     vertical-align:middle;
+}
+
+.chesspiece {
+    font-weight: 400;
+    font-size: 54px;
+    line-height: 70px;
 }
