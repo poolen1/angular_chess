@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { CdkDragDrop } from "@angular/cdk/drag-drop";
+import { CdkDragDrop, CdkDragStart } from "@angular/cdk/drag-drop";
 
 import { Piece } from './models/piece';
 import { Bitboard } from './models/bitboard';
 import { BoardSpace } from './models/boardSpace';
+
+import { GameService } from '../../services/game.service';
 
 // ======================================================================== //
 
@@ -17,16 +19,50 @@ export class BoardComponent implements OnInit {
   gameBoard: any[];
   bitBoards: Bitboard[];
   gamePieces: Piece[];
+  playerTurnDisplay: string;
 
   // ======================================================================== //
 
-  constructor() { 
+  constructor(private _gameService: GameService) 
+  { 
     this.bitBoards = [];
     this.gameBoard = [];
     this.gamePieces = [];
 
     this.initBitboards();
     this.initBoard();
+
+    this._gameService.pieceSelected$.subscribe(selection => {
+      // let piece: Piece = selection.source.dropContainer.data.piece;
+      if (selection)
+      {
+        this.enableDisableDropSquares(selection);
+      }
+    });
+
+    this._gameService.moveCompleted$.subscribe(moveEvent => {
+      if (moveEvent)
+      {
+        let from: BoardSpace = moveEvent.previousContainer.data;
+        let to: BoardSpace = moveEvent.container.data;
+        let toPiece: Piece = to.piece;
+        let fromPiece: Piece = from.piece;
+  
+        // update moved piece
+        if (fromPiece.pieceName)
+        {
+          this.updateBitboard(moveEvent);
+        }
+        // if capture, update captured piece
+        if (toPiece.pieceName)
+        {
+          this.updateBitboard(moveEvent);
+        }
+
+        this.enableDisableDragSquares();
+        this.getPlayerTurn();
+      }
+    });
   }
 
   // ======================================================================== //
@@ -37,7 +73,7 @@ export class BoardComponent implements OnInit {
 
   // ======================================================================== //
 
-  initBitboards()
+  initBitboards(): void
   {
     let board: Bitboard;
 
@@ -72,7 +108,7 @@ export class BoardComponent implements OnInit {
 
   // ======================================================================== //
 
-  initBoard()
+  initBoard(): void
   {
     let boardRow: BoardSpace[];
     let chessPiece: Piece;
@@ -103,7 +139,9 @@ export class BoardComponent implements OnInit {
       }
     }
 
-    console.log("the board: ", this.gameBoard);
+    this.getPlayerTurn();
+    this.enableDisableDragSquares();
+  
   }
 
   // ======================================================================== //
@@ -138,50 +176,78 @@ export class BoardComponent implements OnInit {
 
   // ======================================================================== //
 
-  isBlack(square: BoardSpace)
+  isBlack(square: BoardSpace): boolean
   {
     return (square.arrayRow + square.arrayCol) % 2 === 1;
   }
 
-  // Drag/Drop
   // ======================================================================== //
 
-  drop(event: CdkDragDrop<BoardSpace>) {
-    console.log("the event: ", event);
-    if (event.isPointerOverContainer) {
-      const from: BoardSpace = event.previousContainer.data;
-      const to: BoardSpace = event.container.data;
-      if (event.previousContainer !== event.container) {
-        to.piece = from.piece;
-        from.piece = undefined;
-      } else {
-        to.piece = from.piece;
+  updateBitboard(move: CdkDragDrop<BoardSpace>): void
+  {
+    console.log("bitboard piece to update: ", move.container.data.piece);
+
+    console.log("move event: ", move);
+  }
+
+  // ======================================================================== //
+
+  enableDisableDragSquares(): void
+  {
+    let square: BoardSpace;
+    
+    for (let i=0; i<8; i++)
+    {
+      for (let j=0; j<8; j++)
+      {
+        square = this.gameBoard[i][j];
+        if (square.piece == undefined)
+        {
+          continue;
+        }
+        if (this._gameService.playerTurn == square.piece.color)
+        {
+          square.disabled = false;
+        }
+        else
+        {
+          square.disabled = true;
+        }
       }
     }
   }
-
+  
   // ======================================================================== //
 
-  updateGameBoard(index: number, prevIndex: number)
-  {
-    let temp: Piece = this.gameBoard[prevIndex].piece;
-    this.gameBoard[prevIndex].piece = this.gameBoard[index].piece;
-    this.gameBoard[index].piece = temp;
+  enableDisableDropSquares(selection: CdkDragStart<BoardSpace>): void
+  { 
+    // console.log("dragstart event: ", selection);
 
-    this.gameBoard[index].piece.arrayRow
-      = this.gameBoard[index].arrayRow;
-    this.gameBoard[index].piece.arrayRow
-      = this.gameBoard[index].arrayRow;
+    for (let i=0; i<8; i++)
+    {
+      for (let j=0; j<8; j++)
+      {
+        this.gameBoard[i][j].canDrop = false;
+      }
+    }
 
-    this.gameBoard[prevIndex].piece.arrayRow
-      = this.gameBoard[prevIndex].arrayRow;
-    this.gameBoard[prevIndex].piece.arrayRow
-      = this.gameBoard[prevIndex].arrayRow;
-
-    console.log("the board: ", this.gameBoard);
-    console.log('the pieces: ', this.gamePieces);
 
   }
 
   // ======================================================================== //
+
+  getPlayerTurn(): void
+  {
+    if (this._gameService.playerTurn == 0)
+    {
+      this.playerTurnDisplay = "White to Move";
+    }
+    else if (this._gameService.playerTurn == 1)
+    {
+      this.playerTurnDisplay = "Black to Move";
+    }
+  }
+  
+  // ======================================================================== //
+
 }

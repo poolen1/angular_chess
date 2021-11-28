@@ -3,10 +3,13 @@
     'black': square.arrayRow % 2 !== square.arrayCol % 2}"
     cdkDropList
     [cdkDropListData]="square"
+    [cdkDropListEnterPredicate]="piecePredicate"
     (cdkDropListDropped)="onDrop($event)">
         <span *ngIf="square.piece"
             class="chesspiece" 
             cdkDrag
+            (cdkDragStarted)="onDrag($event)"
+            [cdkDragDisabled]="square.disabled"
             cdkDragBoundary=".board">
             <img [src]= 'square.piece.graphic' />
         </span>

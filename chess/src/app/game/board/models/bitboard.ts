@@ -1,13 +1,18 @@
+import { Piece } from "./piece";
 
 export class Bitboard {
     name: string;
     board: any[];
+
+    // ======================================================================== //
 
     constructor(boardName: string)
     {
         this.name = boardName;
         this.board = this.initBitboard();
     }
+
+    // ======================================================================== //
 
     initBitboard(): any
     {
@@ -86,4 +91,13 @@ export class Bitboard {
 
         return gameBoard;
     }
+    
+    // ======================================================================== //
+
+    updateBitboard(piece: Piece)
+    {
+        
+    }
+
+    // ======================================================================== //
 }

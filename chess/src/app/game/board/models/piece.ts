@@ -4,6 +4,9 @@ export class Piece {
     graphic: string;
     arrayRow: number;
     arrayCol: number;
+    color: number; // white == 0, black == 1
+
+// ======================================================================== //
 
     constructor (name: string, row: number, col: number)
     {
@@ -15,11 +18,15 @@ export class Piece {
         this.graphic = this.initGraphic(name);
         this.arrayRow = row;
         this.arrayCol = col;
+        this.color = this.getColor(name);
     }
+
+// ======================================================================== //
 
     initGraphic(name: string): string
     {
         let pieceGraphic: string = '';
+
         
         if (name == 'P')
         {
@@ -56,6 +63,7 @@ export class Piece {
         else if (name == 'b')
         {
             pieceGraphic = 'assets/bB.png';
+            this.color = 1;
         }
         else if (name == 'r')
         {
@@ -72,4 +80,63 @@ export class Piece {
 
         return pieceGraphic;
     }
+
+// ======================================================================== //
+
+    getColor(name: string)
+    {
+        let theColor: number;
+        if (this.isUpper(name))
+        {
+            theColor = 0;
+        }
+        else if (this.isLower(name))
+        {
+            theColor = 1;
+        }
+        else
+        {
+            theColor = undefined;
+        }
+
+        return theColor;
+    }
+        
+    // ======================================================================== //
+
+    isUpper(char: string)
+    {
+        if (char == char.toUpperCase())
+        {
+        return true;
+        }
+        else
+        {
+        return false;
+        }
+    }
+
+    // ======================================================================== //
+
+    isLower(char: string)
+    {
+        if (char == char.toLowerCase())
+        {
+        return true;
+        }
+        else
+        {
+        return false;
+        }
+    }
+
+    // ======================================================================== //
+
+    getLegalMoves()
+    {
+        
+    }
+
+    // ======================================================================== //
+
 }

@@ -20,7 +20,7 @@ import { SquareComponent } from './game/square/square.component';
     AppRoutingModule,
     DragDropModule
   ],
-  providers: [],
+  providers: [SquareComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

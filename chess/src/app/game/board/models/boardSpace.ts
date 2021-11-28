@@ -7,6 +7,10 @@ export class BoardSpace
     chessCol: string;
     arrayRow: number;
     arrayCol: number;
+    disabled: boolean;
+    canDrop: boolean;
+
+    // ======================================================================== //
 
     constructor(chessPiece: Piece, boardRow: string, boardCol: string, machineRow: number, machineCol: number)
     {
@@ -15,5 +19,9 @@ export class BoardSpace
         this.chessCol = boardCol;
         this.arrayRow = machineRow;
         this.arrayCol = machineCol;
+        this.canDrop = false;
     }
+
+    // ======================================================================== //
+
 }

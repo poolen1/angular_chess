@@ -1,7 +1,11 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { BoardSpace } from '../board/models/boardSpace';
-import { CdkDragDrop } from '@angular/cdk/drag-drop';
+import { CdkDragDrop, CdkDragStart } from '@angular/cdk/drag-drop';
 import { Piece } from '../board/models/piece';
+import { BehaviorSubject } from 'rxjs';
+import { GameService } from '../../services/game.service';
+
+// ======================================================================== //
 
 @Component({
   selector: 'app-square',
@@ -10,43 +14,54 @@ import { Piece } from '../board/models/piece';
 })
 export class SquareComponent implements OnInit {
   @Input() public square: BoardSpace;
-  private temp: Piece;
 
-  constructor() {}
+  // ======================================================================== //
+
+  constructor(private _gameService: GameService) 
+  {
+  }
+
+  // ======================================================================== //
 
   ngOnInit() {}
 
-  onDrop(event: CdkDragDrop<BoardSpace>) {
-    // console.log(event.previousIndex);
-    // console.log(event.currentIndex);
-    if (event.isPointerOverContainer) {
+  // ======================================================================== //
+
+  onDrag(event: CdkDragStart<BoardSpace>)
+  {
+    console.log("piece: ", event.source.dropContainer.data.piece);
+
+    this._gameService.pieceSelected(event);
+  }
+
+  // ======================================================================== //
+
+  onDrop(event: CdkDragDrop<BoardSpace>) 
+  {
+    if (event.isPointerOverContainer) 
+    {
+      this._gameService.moveCompleted(event);
+
       const from: BoardSpace = event.previousContainer.data;
       const to: BoardSpace = event.container.data;
-      if (event.previousContainer !== event.container) {
+      if (event.previousContainer !== event.container) 
+      {
         to.piece = from.piece;
         from.piece = undefined;
-      } else {
+      } else 
+      {
         to.piece = from.piece;
       }
     }
-    // if (event.previousContainer === event.container) {
-    //   moveItemInArray(event.container.data,
-    //     event.previousIndex,
-    //     event.currentIndex);
-    // } else {
-    //   transferArrayItem(event.previousContainer.data,
-    //     event.container.data,
-    //     event.previousIndex, event.currentIndex);
-    // }
   }
 
-  enteredDrop(event: CdkDragDrop<BoardSpace>) {
-  }
+  // ======================================================================== //
 
-  exitedDrop(event: CdkDragDrop<BoardSpace>) {
+  piecePredicate(): boolean
+  {
+    return this.square.canDrop;
   }
-
-  sortedDrop(event: CdkDragDrop<BoardSpace>) {
-  }
+  
+  // ======================================================================== //
 
 }

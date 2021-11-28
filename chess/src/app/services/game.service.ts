@@ -1,27 +1,55 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { Piece } from '../game/board/models/piece';
 import { BoardSpace } from '../game/board/models/boardSpace';
+import { SquareComponent } from '../game/square/square.component';
+import { CdkDragDrop, CdkDragStart, CdkDropList } from '@angular/cdk/drag-drop';
 
+// ======================================================================== //
 
 @Injectable({
   providedIn: 'root'
 })
 export class GameService {
+  board: BoardSpace;
+  playerTurn: number;
 
-  piecePosition$ = new BehaviorSubject<BoardSpace>();
-  selectedPiece: Piece;
-  currentPosition: BoardSpace;
+  private pieceSelectedSource = new BehaviorSubject<CdkDragStart<BoardSpace>>(null);
+  private moveCompletedSource = new BehaviorSubject<CdkDragDrop<BoardSpace>>(null);
+
+  moveCompleted$ = this.moveCompletedSource.asObservable();
+  pieceSelected$ = this.pieceSelectedSource.asObservable();
+
+  // ======================================================================== //
 
   constructor()
   {
-    this.piecePosition$.subscribe(pos => {
-      this.currentPosition = pos;
-    })
+    this.playerTurn = 0;
   }
 
-  movePiece(to: BoardSpace)
+  // ======================================================================== //
+
+  pieceSelected(selection: CdkDragStart<BoardSpace>)
   {
-    this.piecePosition$.next(to);
+    this.pieceSelectedSource.next(selection);
   }
+
+  // ======================================================================== //
+
+  moveCompleted(move: CdkDragDrop<BoardSpace>)
+  {
+    if (this.playerTurn == 0)
+    {
+      this.playerTurn += 1;
+    }
+    else if (this.playerTurn == 1)
+    {
+      this.playerTurn -= 1;
+    }
+
+    this.moveCompletedSource.next(move);
+  }
+
+  // ======================================================================== //
+
 }
