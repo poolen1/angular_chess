@@ -1,3 +1,4 @@
+import { BoardSpace } from '../models/boardSpace';
 
 export class Piece {
     pieceName: string;
@@ -6,7 +7,7 @@ export class Piece {
     arrayCol: number;
     color: number; // white == 0, black == 1
 
-// ======================================================================== //
+    // ======================================================================== //
 
     constructor (name: string, row: number, col: number)
     {
@@ -21,7 +22,7 @@ export class Piece {
         this.color = this.getColor(name);
     }
 
-// ======================================================================== //
+    // ======================================================================== //
 
     initGraphic(name: string): string
     {
@@ -81,7 +82,7 @@ export class Piece {
         return pieceGraphic;
     }
 
-// ======================================================================== //
+    // ======================================================================== //
 
     getColor(name: string)
     {
@@ -132,11 +133,150 @@ export class Piece {
 
     // ======================================================================== //
 
-    getLegalMoves()
+    getLegalMoves(currentBoard: any, piece: Piece, x: number, y: number): any
     {
+        currentBoard[x][y].canDrop = true;
+
         
+
+        return currentBoard;
     }
 
+    // ======================================================================== //
+
+    getPieceMoves(currentBoard: any, piece: Piece, x: number, y: number): any
+    {
+        let name: string = piece.pieceName;
+
+        if (name == 'p')
+        {
+            this.getBlackPawnMoves(currentBoard, piece, x, y);
+        }
+        else if (name == 'P')
+        {
+            this.getWhitePawnMoves(currentBoard, piece, x, y);
+        }
+        else if (name == 'n' || name == 'N')
+        {
+            this.getKnightMoves(currentBoard, piece, x, y);
+        }
+        else if (name == 'b' || name == 'B')
+        {
+            this.getBishopMoves(currentBoard, piece, x, y);
+        }
+        else if (name == 'r' || name == 'R')
+        {
+            this.getRookMoves(currentBoard, piece, x, y);
+        }
+        else if (name == 'k' || name == 'K')
+        {
+            this.getKingMoves(currentBoard, piece, x, y);
+        }
+        else if (name == 'q' || name == 'Q')
+        {
+            this.getQueenMoves(currentBoard, piece, x, y);
+        }
+
+    }
+    
+    // ======================================================================== //
+
+    getWhitePawnMoves(currentBoard: any, piece: Piece, x: number, y: number): void
+    {
+
+    }
+    
+    // ======================================================================== //
+
+    getBlackPawnMoves(currentBoard: any, piece: Piece, x: number, y: number): void
+    {
+
+    }
+    
+    // ======================================================================== //
+
+    getKnightMoves(currentBoard: any, piece: Piece, x: number, y: number)
+    {
+
+    }
+    
+    // ======================================================================== //
+
+    getBishopMoves(currentBoard: any, piece: Piece, x: number, y: number)
+    {
+
+    }
+    
+    // ======================================================================== //
+    
+    getRookMoves(currentBoard: any, piece: Piece, x: number, y: number)
+    {
+
+    }
+
+    // ======================================================================== //
+
+    getKingMoves(currentBoard: any, piece: Piece, x: number, y: number)
+    {
+
+    }
+
+    // ======================================================================== //
+    
+    getQueenMoves(currentBoard: any, piece: Piece, x: number, y: number)
+    {
+
+    }
+
+    // ======================================================================== //
+
+    checkForCaptures()
+    {
+
+    }
+
+    // ======================================================================== //
+    
+    checkBlockedSpaces()
+    {
+
+    }
+
+    // ======================================================================== //
+
+    checkPawnPromotion()
+    {
+
+    }
+
+    // ======================================================================== //
+    
+    checkEnPassant()
+    {
+
+    }
+
+    // ======================================================================== //
+    
+    checkCanCastle()
+    {
+
+    }
+
+    // ======================================================================== //
+    
+    promotePawn()
+    {
+
+    }
+
+    // ======================================================================== //
+
+    castle()
+    {
+
+    }
+    
     // ======================================================================== //
 
 }

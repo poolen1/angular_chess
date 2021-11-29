@@ -32,14 +32,16 @@ export class BoardComponent implements OnInit {
     this.initBitboards();
     this.initBoard();
 
+    // on pick up piece
     this._gameService.pieceSelected$.subscribe(selection => {
-      // let piece: Piece = selection.source.dropContainer.data.piece;
+      
       if (selection)
       {
-        this.enableDisableDropSquares(selection);
+        this.enableDropSquares(selection);
       }
     });
 
+    // on drop piece
     this._gameService.moveCompleted$.subscribe(moveEvent => {
       if (moveEvent)
       {
@@ -48,19 +50,23 @@ export class BoardComponent implements OnInit {
         let toPiece: Piece = to.piece;
         let fromPiece: Piece = from.piece;
   
-        // update moved piece
-        if (fromPiece.pieceName)
+        if (from != to)
         {
-          this.updateBitboard(moveEvent);
-        }
-        // if capture, update captured piece
-        if (toPiece.pieceName)
-        {
-          this.updateBitboard(moveEvent);
-        }
+          // update moved piece
+          if (fromPiece.pieceName)
+          {
+            this.updateBitboard(moveEvent);
+          }
+          // if capture, update captured piece
+          if (toPiece.pieceName)
+          {
+            this.updateBitboard(moveEvent);
+          }
 
-        this.enableDisableDragSquares();
-        this.getPlayerTurn();
+          this.enableDisableDragSquares();
+          this.disableDropSquares();
+          this.getPlayerTurn();  
+        }
       }
     });
   }
@@ -219,10 +225,21 @@ export class BoardComponent implements OnInit {
   
   // ======================================================================== //
 
-  enableDisableDropSquares(selection: CdkDragStart<BoardSpace>): void
+  enableDropSquares(selection: CdkDragStart<BoardSpace>): void
   { 
     // console.log("dragstart event: ", selection);
+    let piece: Piece = selection.source.dropContainer.data.piece;
+    let x: number = piece.arrayRow;
+    let y: number = piece.arrayCol;
 
+    this.gameBoard = piece.getLegalMoves(this.gameBoard, piece, x, y);
+
+  }
+
+  // ======================================================================== //
+  
+  disableDropSquares(): void
+  {
     for (let i=0; i<8; i++)
     {
       for (let j=0; j<8; j++)
@@ -230,8 +247,6 @@ export class BoardComponent implements OnInit {
         this.gameBoard[i][j].canDrop = false;
       }
     }
-
-
   }
 
   // ======================================================================== //

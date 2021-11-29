@@ -59,7 +59,14 @@ export class SquareComponent implements OnInit {
 
   piecePredicate(): boolean
   {
-    return this.square.canDrop;
+    if (this.square)
+    {
+      return this.square.canDrop;
+    }
+    else
+    {
+      return false;
+    }
   }
   
   // ======================================================================== //
