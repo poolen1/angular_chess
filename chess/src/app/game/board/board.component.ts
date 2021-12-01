@@ -20,6 +20,8 @@ export class BoardComponent implements OnInit {
   bitBoards: Bitboard[];
   gamePieces: Piece[];
   playerTurnDisplay: string;
+  prisonersOfWhite: String[];
+  prisonersOfBlack: String[];
 
   // ======================================================================== //
 
@@ -28,6 +30,8 @@ export class BoardComponent implements OnInit {
     this.bitBoards = [];
     this.gameBoard = [];
     this.gamePieces = [];
+    this.prisonersOfWhite = [];
+    this.prisonersOfBlack = [];
 
     this.initBitboards();
     this.initBoard();
@@ -60,6 +64,7 @@ export class BoardComponent implements OnInit {
           // if capture, update captured piece
           if (toPiece.pieceName)
           {
+            this.capturePiece(fromPiece, toPiece);
             this.updateBitboard(moveEvent);
           }
 
@@ -191,9 +196,7 @@ export class BoardComponent implements OnInit {
 
   updateBitboard(move: CdkDragDrop<BoardSpace>): void
   {
-    console.log("bitboard piece to update: ", move.container.data.piece);
 
-    console.log("move event: ", move);
   }
 
   // ======================================================================== //
@@ -201,7 +204,7 @@ export class BoardComponent implements OnInit {
   enableDisableDragSquares(): void
   {
     let square: BoardSpace;
-    
+
     for (let i=0; i<8; i++)
     {
       for (let j=0; j<8; j++)
@@ -227,7 +230,6 @@ export class BoardComponent implements OnInit {
 
   enableDropSquares(selection: CdkDragStart<BoardSpace>): void
   { 
-    // console.log("dragstart event: ", selection);
     let piece: Piece = selection.source.dropContainer.data.piece;
     let x: number = piece.arrayRow;
     let y: number = piece.arrayCol;
@@ -260,6 +262,24 @@ export class BoardComponent implements OnInit {
     else if (this._gameService.playerTurn == 1)
     {
       this.playerTurnDisplay = "Black to Move";
+    }
+  }
+  
+  // ======================================================================== //
+
+  capturePiece(capturer: Piece, prisoner: Piece)
+  {
+    this._gameService.capturePiece(capturer, prisoner);
+
+    console.log("graphic: ", prisoner.graphic);
+
+    if (prisoner.color == 1)
+    {
+      this.prisonersOfWhite.push(prisoner.graphic);
+    }
+    else if (prisoner.color == 0)
+    {
+      this.prisonersOfBlack.push(prisoner.graphic);
     }
   }
   

@@ -3,7 +3,6 @@
     'black': square.arrayRow % 2 !== square.arrayCol % 2}"
     cdkDropList
     [cdkDropListData]="square"
-    [cdkDropListEnterPredicate]="piecePredicate"
     (cdkDropListDropped)="onDrop($event)">
         <span *ngIf="square.piece"
             class="chesspiece" 

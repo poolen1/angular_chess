@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { BoardSpace } from '../board/models/boardSpace';
-import { CdkDragDrop, CdkDragStart } from '@angular/cdk/drag-drop';
+import { CdkDrag, CdkDragDrop, CdkDragStart, CdkDropList } from '@angular/cdk/drag-drop';
 import { Piece } from '../board/models/piece';
 import { BehaviorSubject } from 'rxjs';
 import { GameService } from '../../services/game.service';
@@ -29,8 +29,6 @@ export class SquareComponent implements OnInit {
 
   onDrag(event: CdkDragStart<BoardSpace>)
   {
-    console.log("piece: ", event.source.dropContainer.data.piece);
-
     this._gameService.pieceSelected(event);
   }
 
@@ -40,32 +38,26 @@ export class SquareComponent implements OnInit {
   {
     if (event.isPointerOverContainer) 
     {
-      this._gameService.moveCompleted(event);
-
       const from: BoardSpace = event.previousContainer.data;
       const to: BoardSpace = event.container.data;
-      if (event.previousContainer !== event.container) 
+
+      if (to.canDrop)
       {
-        to.piece = from.piece;
-        from.piece = undefined;
-      } else 
-      {
-        to.piece = from.piece;
+        this._gameService.moveCompleted(event);
+
+        if (event.previousContainer !== event.container) 
+        {
+          to.piece = from.piece;
+          from.piece = undefined;
+
+          to.piece.arrayRow = event.container.data.arrayRow;
+          to.piece.arrayCol = event.container.data.arrayCol;
+        } 
+        else 
+        {
+          to.piece = from.piece;
+        }
       }
-    }
-  }
-
-  // ======================================================================== //
-
-  piecePredicate(): boolean
-  {
-    if (this.square)
-    {
-      return this.square.canDrop;
-    }
-    else
-    {
-      return false;
     }
   }
   

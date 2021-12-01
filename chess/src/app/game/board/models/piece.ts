@@ -27,7 +27,6 @@ export class Piece {
     initGraphic(name: string): string
     {
         let pieceGraphic: string = '';
-
         
         if (name == 'P')
         {
@@ -109,11 +108,11 @@ export class Piece {
     {
         if (char == char.toUpperCase())
         {
-        return true;
+            return true;
         }
         else
         {
-        return false;
+            return false;
         }
     }
 
@@ -123,11 +122,11 @@ export class Piece {
     {
         if (char == char.toLowerCase())
         {
-        return true;
+            return true;
         }
         else
         {
-        return false;
+            return false;
         }
     }
 
@@ -137,7 +136,7 @@ export class Piece {
     {
         currentBoard[x][y].canDrop = true;
 
-        
+        this.getPieceMoves(currentBoard, piece, x, y);
 
         return currentBoard;
     }
@@ -183,14 +182,39 @@ export class Piece {
 
     getWhitePawnMoves(currentBoard: any, piece: Piece, x: number, y: number): void
     {
-
+        console.log("piece: ", currentBoard[x-1][y].piece.pieceName);
+        if (currentBoard[x-1][y].piece.pieceName == undefined)
+        {
+            currentBoard[x-1][y].canDrop = true;
+        }
+        if (currentBoard[x-1][y-1].piece)
+        {
+            currentBoard[x-1][y-1].canDrop = true;
+        }
+        if (currentBoard[x-1][y+1].piece)
+        {
+            currentBoard[x-1][y+1].canDrop = true;
+        }
     }
     
     // ======================================================================== //
 
     getBlackPawnMoves(currentBoard: any, piece: Piece, x: number, y: number): void
     {
-
+        console.log("piece: ", currentBoard[x+1][y].piece.pieceName);
+        if (currentBoard[x+1][y].piece.pieceName == undefined)
+        {
+            currentBoard[x+1][y].canDrop = true;
+        }
+        if (currentBoard[x+1][y-1].piece)
+        {
+            currentBoard[x+1][y-1].canDrop = true;
+            
+        }
+        if (currentBoard[x+1][y+1].piece)
+        {
+            currentBoard[x+1][y+1].canDrop = true;
+        }
     }
     
     // ======================================================================== //

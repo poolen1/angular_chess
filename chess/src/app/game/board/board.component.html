@@ -6,8 +6,27 @@
     <br />
   </div>
 </div>
+
 <div>
   <span>
     {{ playerTurnDisplay }}
   </span>
+</div>
+
+<div>
+    White Captured:
+    <div  *ngIf="prisonersOfWhite != undefined">
+      <span *ngFor="let prisoner of prisonersOfWhite">
+        <img src={{ prisoner }} />
+      </span>
+    </div>
+</div>
+
+<div>
+  Black Captured:
+    <div  *ngIf="prisonersOfBlack != undefined">
+      <span *ngFor="let prisoner of prisonersOfBlack">
+        <img [src]="prisoner" />
+      </span>
+    </div>
 </div>
