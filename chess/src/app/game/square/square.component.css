@@ -1,90 +1,90 @@
 
 .cdk-drag-placeholder {
-    opacity: 0;
+  opacity: 0;
 }
 
 .cdk-drag-animating {
-    transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
 }
 
 .chessboard.cdk-drop-list-dragging .example-box:not(.cdk-drag-placeholder) {
-    transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
 }
 
 .custom-placeholder {
-    background: #ccc;
-    border: dotted 3px #999;
-    min-height: 60px;
-    transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
-  }
+  background: #ccc;
+  border: dotted 3px #999;
+  min-height: 60px;
+  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}
   
 .chesspiece {
-    float: left;
-    position: relative;
-    width: 49px;
-    height: 49px;
-    z-index: 1;
+  float: left;
+  position: relative;
+  width: 49px;
+  height: 49px;
+  z-index: 1;
+
+  /* disable any native browser highlighting */
+  -webkit-touch-callout: none;
+    -webkit-user-select: none;
+      -khtml-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+            user-select: none;
+}
   
-    /* disable any native browser highlighting */
-    -webkit-touch-callout: none;
-      -webkit-user-select: none;
-       -khtml-user-select: none;
-         -moz-user-select: none;
-          -ms-user-select: none;
-              user-select: none;
-  }
+.chesspiece:active {
+  z-index: 2;
+}
   
-  .chesspiece:active {
-    z-index: 2;
-  }
+.square {
+  float: left;
+  position: relative;
+  width:74px;
+  height:74px;
+
+  /* disable any native browser highlighting */
+  -webkit-touch-callout: none;
+    -webkit-user-select: none;
+      -khtml-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+            user-select: none;
+}
   
-  .square {
-    float: left;
-    position: relative;
-    width:74px;
-    height:74px;
-  
-    /* disable any native browser highlighting */
-    -webkit-touch-callout: none;
-      -webkit-user-select: none;
-       -khtml-user-select: none;
-         -moz-user-select: none;
-          -ms-user-select: none;
-              user-select: none;
-  }
-  
-  .white {
-    background-color: #f0d9b5;
-    color: #b58863;
-  }
-  
-  .black {
-    background-color: #b58863;
-    color: #f0d9b5;
-  }
-  
-  .highlight {
-    box-shadow: inset 0 0 3px 3px yellow;
-  }
-  
-  .notation {
-    cursor: default;
-    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-    font-size: 14px;
-    position: absolute;
-  }
-  
-  .alpha {
-    bottom: 1px;
-    right: 3px;
-  }
-  
-  .numeric {
-    top: 2px;
-    left: 2px;
-  }
-  
-  .cdk-drag-placeholder {
-    opacity: 0;
-  }
+.white {
+  background-color: #f0d9b5;
+  color: #b58863;
+}
+
+.black {
+  background-color: #b58863;
+  color: #f0d9b5;
+}
+
+.highlight {
+  box-shadow: inset 0 0 3px 3px yellow;
+}
+
+.notation {
+  cursor: default;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  position: absolute;
+}
+
+.alpha {
+  bottom: 1px;
+  right: 3px;
+}
+
+.numeric {
+  top: 2px;
+  left: 2px;
+}
+
+.cdk-drag-placeholder {
+  opacity: 0;
+}
   

@@ -45,10 +45,12 @@ export class SquareComponent implements OnInit {
       {
         this._gameService.moveCompleted(event);
 
+        from.piece.hasMoved = true;
+
         if (event.previousContainer !== event.container) 
         {
           to.piece = from.piece;
-          from.piece = undefined;
+          from.piece = new Piece('0', from.arrayRow, from.arrayCol);
 
           to.piece.arrayRow = event.container.data.arrayRow;
           to.piece.arrayCol = event.container.data.arrayCol;

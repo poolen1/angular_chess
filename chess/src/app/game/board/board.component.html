@@ -17,16 +17,23 @@
     White Captured:
     <div  *ngIf="prisonersOfWhite != undefined">
       <span *ngFor="let prisoner of prisonersOfWhite">
-        <img src={{ prisoner }} />
+        <img class="prisoner-list" [src]='prisoner.graphic' />
       </span>
     </div>
+</div>
+
+<div>
+  &nbsp;
+</div>
+<div>
+  &nbsp;
 </div>
 
 <div>
   Black Captured:
     <div  *ngIf="prisonersOfBlack != undefined">
       <span *ngFor="let prisoner of prisonersOfBlack">
-        <img [src]="prisoner" />
+        <img class="prisoner-list" [src]='prisoner.graphic' />
       </span>
     </div>
 </div>

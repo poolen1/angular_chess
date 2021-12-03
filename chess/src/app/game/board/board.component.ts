@@ -20,8 +20,8 @@ export class BoardComponent implements OnInit {
   bitBoards: Bitboard[];
   gamePieces: Piece[];
   playerTurnDisplay: string;
-  prisonersOfWhite: String[];
-  prisonersOfBlack: String[];
+  prisonersOfWhite: Piece[];
+  prisonersOfBlack: Piece[];
 
   // ======================================================================== //
 
@@ -47,6 +47,7 @@ export class BoardComponent implements OnInit {
 
     // on drop piece
     this._gameService.moveCompleted$.subscribe(moveEvent => {
+      
       if (moveEvent)
       {
         let from: BoardSpace = moveEvent.previousContainer.data;
@@ -68,6 +69,7 @@ export class BoardComponent implements OnInit {
             this.updateBitboard(moveEvent);
           }
 
+          
           this.enableDisableDragSquares();
           this.disableDropSquares();
           this.getPlayerTurn();  
@@ -271,15 +273,13 @@ export class BoardComponent implements OnInit {
   {
     this._gameService.capturePiece(capturer, prisoner);
 
-    console.log("graphic: ", prisoner.graphic);
-
     if (prisoner.color == 1)
     {
-      this.prisonersOfWhite.push(prisoner.graphic);
+      this.prisonersOfWhite.push(prisoner);
     }
     else if (prisoner.color == 0)
     {
-      this.prisonersOfBlack.push(prisoner.graphic);
+      this.prisonersOfBlack.push(prisoner);
     }
   }
   

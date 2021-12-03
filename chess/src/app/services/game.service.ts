@@ -64,24 +64,6 @@ export class GameService {
 
   // ======================================================================== //
 
-  verifyCastleLeft()
-  {
-    let canCastle: boolean = false;
-
-    return canCastle;
-  }
-
-  // ======================================================================== //
-
-  verifyCastleRight()
-  {
-    let canCastle: boolean = false;
-
-    return canCastle;
-  }
-
-  // ======================================================================== //
-
   verifyCheck(): boolean
   {
     let check: boolean = false;
