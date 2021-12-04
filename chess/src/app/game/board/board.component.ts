@@ -47,7 +47,7 @@ export class BoardComponent implements OnInit {
 
     // on drop piece
     this._gameService.moveCompleted$.subscribe(moveEvent => {
-      
+
       if (moveEvent)
       {
         let from: BoardSpace = moveEvent.previousContainer.data;
@@ -69,10 +69,18 @@ export class BoardComponent implements OnInit {
             this.updateBitboard(moveEvent);
           }
 
-          
           this.enableDisableDragSquares();
           this.disableDropSquares();
           this.getPlayerTurn();  
+
+          this._gameService.isCheck = this._gameService.verifyCheck(this.gameBoard);
+          if (this._gameService.isCheck)
+          {
+            if (this._gameService.isCheckmate)
+            {
+              //endgame logic
+            }
+          }
         }
       }
     });

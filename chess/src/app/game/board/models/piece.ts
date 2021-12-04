@@ -233,49 +233,37 @@ export class Piece {
 
     getKnightMoves(currentBoard: any, piece: Piece, x: number, y: number)
     {
-        if (currentBoard[x-2] != undefined)
+        if ((x-2)>-1 && (y-1)>-1 && currentBoard[x-2][y-1].piece.color != piece.color)
         {
-            if (currentBoard[x-2][y-1] != undefined && currentBoard[x-2][y-1].piece.color != piece.color)
-            {
-                currentBoard[x-2][y-1].canDrop = true;
-            }
-            if (currentBoard[x-2][y+1] != undefined && currentBoard[x-2][y+1].piece.color != piece.color)
-            {
-                currentBoard[x-2][y+1].canDrop = true;
-            }
+            currentBoard[x-2][y-1].canDrop = true;
         }
-        if (currentBoard[x-1] != undefined)
+        if ((x-2)>-1 && (y+1)<8 && currentBoard[x-2][y+1].piece.color != piece.color)
         {
-            if (currentBoard[x-1][y-2] != undefined && currentBoard[x-1][y-2].piece.color != piece.color)
-            {
-                currentBoard[x-1][y-2].canDrop = true;
-            }
-            if (currentBoard[x-1][y+2] != undefined && currentBoard[x-1][y+2].piece.color != piece.color)
-            {
-                currentBoard[x-1][y+2].canDrop = true;
-            }
+            currentBoard[x-2][y+1].canDrop = true;
         }
-        if (currentBoard[x+1] != undefined)
+        if ((x-1)>-1 && (y-2)>-1 && currentBoard[x-1][y-2].piece.color != piece.color)
         {
-            if (currentBoard[x+1][y-2] != undefined && currentBoard[x+1][y-2].piece.color != piece.color)
-            {
-                currentBoard[x+1][y-2].canDrop = true;
-            }
-            if (currentBoard[x+1][y+2] != undefined && currentBoard[x+1][y+2].piece.color != piece.color)
-            {
-                currentBoard[x+1][y+2].canDrop = true;
-            }
+            currentBoard[x-1][y-2].canDrop = true;
         }
-        if (currentBoard[x+2] != undefined)
+        if ((x-1)>-1 && (y+2)<8 && currentBoard[x-1][y+2].piece.color != piece.color)
         {
-            if (currentBoard[x+2][y-1] != undefined && currentBoard[x+2][y-1].piece.color != piece.color)
-            {
-                currentBoard[x+2][y-1].canDrop = true;
-            }
-            if (currentBoard[x+2][y+1] != undefined && currentBoard[x+2][y+1].piece.color != piece.color)
-            {
-                currentBoard[x+2][y+1].canDrop = true;
-            }
+            currentBoard[x-1][y+2].canDrop = true;
+        }
+        if ((x+1)<8 && (y-2)>-1 && currentBoard[x+1][y-2].piece.color != piece.color)
+        {
+            currentBoard[x+1][y-2].canDrop = true;
+        }
+        if ((x+1)<8 && (y+2)<8 && currentBoard[x+1][y+2].piece.color != piece.color)
+        {
+            currentBoard[x+1][y+2].canDrop = true;
+        }
+        if ((x+2)<8 && (y-1)>-1 && currentBoard[x+2][y-1].piece.color != piece.color)
+        {
+            currentBoard[x+2][y-1].canDrop = true;
+        }
+        if ((x+2)<8 && (y+1)<8 && currentBoard[x+2][y+1].piece.color != piece.color)
+        {
+            currentBoard[x+2][y+1].canDrop = true;
         }
     }
     
@@ -286,7 +274,7 @@ export class Piece {
         // up-left (--)
         let i = x-1;
         let j = y-1;
-        while (i>=0 && j>=0
+        while (i>-1 && j>-1
             && (currentBoard[i][j].piece.pieceName == undefined
             || currentBoard[i][j].piece.color != piece.color))
         {
@@ -303,7 +291,7 @@ export class Piece {
         // up-right (-+)
         i = x-1;
         j = y+1;
-        while (i>=0 && j<8
+        while (i>-1 && j<8
             && (currentBoard[i][j].piece.pieceName == undefined
             || currentBoard[i][j].piece.color != piece.color))
         {
@@ -337,7 +325,7 @@ export class Piece {
         // down-left (+-)
         i = x+1;
         j = y-1;
-        while (i<8 && j>=0
+        while (i<8 && j>-1
             && (currentBoard[i][j].piece.pieceName == undefined
             || currentBoard[i][j].piece.color != piece.color))
         {
@@ -354,7 +342,7 @@ export class Piece {
     
     // ======================================================================== //
 
-    getRookMoves(currentBoard: any, piece: Piece, x: number, y: number)
+    getRookMoves(currentBoard: any, piece, x: number, y: number)
     {
         //rook downboard
         let i = x+1;
@@ -421,28 +409,28 @@ export class Piece {
     getKingMoves(currentBoard: any, piece: Piece, x: number, y: number)
     {
         //up
-        let isCheck = this.verifyCheck(currentBoard, piece, x+1, y);
-        if ((x+1)<8 && isCheck == false 
-            && currentBoard[x+1][y].piece.pieceName == undefined
-            || currentBoard[x+1][y].piece.color != piece.color)
+        let isCheck = this.verifyCheck(currentBoard, piece, x-1, y);
+        if ((x-1)>-1 && isCheck == false 
+            && (currentBoard[x-1][y].piece.pieceName == undefined
+            || currentBoard[x-1][y].piece.color != piece.color))
         {
-            currentBoard[x+1][y].canDrop = true;
+            currentBoard[x-1][y].canDrop = true;
         }
 
         //down
-        isCheck = this.verifyCheck(currentBoard, piece, x-1, y);
-        if ((x-1)>-1 && isCheck == false 
-            && currentBoard[x-1][y].piece.pieceName == undefined
-            || currentBoard[x-1][y].piece.color != piece.color)
+        isCheck = this.verifyCheck(currentBoard, piece, x+1, y);
+        if ((x+1)<8 && isCheck == false 
+            && (currentBoard[x+1][y].piece.pieceName == undefined
+            || currentBoard[x+1][y].piece.color != piece.color))
         {
-            currentBoard[x-1][y].canDrop = true;
+            currentBoard[x+1][y].canDrop = true;
         }
 
         //right
         isCheck = this.verifyCheck(currentBoard, piece, x, y+1);
         if ((y+1)<8 && isCheck == false 
-            && currentBoard[x][y+1].piece.pieceName == undefined
-            || currentBoard[x][y+1].piece.color != piece.color)
+            && (currentBoard[x][y+1].piece.pieceName == undefined
+            || currentBoard[x][y+1].piece.color != piece.color))
         {
             currentBoard[x][y+1].canDrop = true;
         }
@@ -450,13 +438,48 @@ export class Piece {
         //left
         isCheck = this.verifyCheck(currentBoard, piece, x, y-1);
         if ((y-1)>-1 && isCheck == false 
-            && currentBoard[x][y-1].piece.pieceName == undefined
-            || currentBoard[x][y-1].piece.color != piece.color)
+            && (currentBoard[x][y-1].piece.pieceName == undefined
+            || currentBoard[x][y-1].piece.color != piece.color))
         {
             currentBoard[x][y-1].canDrop = true;
         }
 
+        //up left
+        isCheck = this.verifyCheck(currentBoard, piece, x-1, y-1);
+        if ((x-1)>-1 && (y-1)>-1 && isCheck == false 
+            && (currentBoard[x-1][y-1].piece.pieceName == undefined
+            || currentBoard[x-1][y-1].piece.color != piece.color))
+        {
+            currentBoard[x-1][y-1].canDrop = true;
+        }
+
+        //up right
+        isCheck = this.verifyCheck(currentBoard, piece, x-1, y+1);
+        if ((x-1)>-1 && (y+1)<8 && isCheck == false 
+            && (currentBoard[x-1][y+1].piece.pieceName == undefined
+            || currentBoard[x-1][y+1].piece.color != piece.color))
+        {
+            currentBoard[x-1][y+1].canDrop = true;
+        }
         
+
+        //down left
+        isCheck = this.verifyCheck(currentBoard, piece, x+1, y-1);
+        if ((x+1)<8 && (y-1)>-1 && isCheck == false 
+            && (currentBoard[x+1][y-1].piece.pieceName == undefined
+            || currentBoard[x+1][y-1].piece.color != piece.color))
+        {
+            currentBoard[x+1][y-1].canDrop = true;
+        }
+
+        //down right
+        isCheck = this.verifyCheck(currentBoard, piece, x+1, y+1);
+        if ((x+1)<8 && (y+1)<8 &&  isCheck == false 
+            && (currentBoard[x+1][y+1].piece.pieceName == undefined
+            || currentBoard[x+1][y+1].piece.color != piece.color))
+        {
+            currentBoard[x+1][y+1].canDrop = true;
+        }
     }
 
     // ======================================================================== //
@@ -483,37 +506,604 @@ export class Piece {
     
     // ======================================================================== //
 
-    verifyCheck(currentBoard: any, king: Piece, x: number, y: number): boolean
+    verifyCheck(currentBoard: any, piece: Piece, x: number, y: number): boolean
     {
         let isCheck: boolean = false;
+        let i: number;
+        let j: number;
+
+        if (x>7 || x<0 || y>7 || y<0)
+        {
+            return isCheck;
+        }
+
+        // ----------------------------------------------------------------- //
 
         // pawn
-        if (king.color == 0)
+        if (piece.color == 0)
         {
-            if (currentBoard[x-1][y+1].piece.pieceName == 'p'
-            || currentBoard[x-1][y-1].piece.pieceName == 'p')
+            if ((x-1)>-1 && (y+1)< 8 && currentBoard[x-1][y+1].piece.pieceName == 'p'
+            || (y-1)>-1 && currentBoard[x-1][y-1].piece.pieceName == 'p')
             {
-                isCheck = true;
+                return true;
             }
         }
-        else if (king.color == 1)
+        else if (piece.color == 1)
         {
-            if (currentBoard[x+1][y+1].piece.pieceName == 'P'
-            || currentBoard[x+1][y-1].piece.pieceName == 'P')
+            if ((x+1)<8 && (y+1)<8 && currentBoard[x+1][y+1].piece.pieceName == 'P'
+            || (y-1)>-1 && currentBoard[x+1][y-1].piece.pieceName == 'P')
             {
-                isCheck = true;
+                return true;
             }
         }
+
+        // ----------------------------------------------------------------- //
 
         // knight
+        if ((x-2)>-1 && (y-1)>-1 && currentBoard[x-2][y-1].piece.color != piece.color)
+        {
+            if (piece.pieceName == 'k' && currentBoard[x-2][y-1].piece.pieceName == 'N')
+            {
+                return true;
+            }
+            else if (piece.pieceName == 'K' && currentBoard[x-2][y-1].piece.pieceName == 'n')
+            {
+                return true;
+            }
+        }
+        if ((x-2)>-1 && (y+1)<8 && currentBoard[x-2][y+1].piece.color != piece.color)
+        {
+            if (piece.pieceName == 'k' && currentBoard[x-2][y+1].piece.pieceName == 'N')
+            {
+                return true;
+            }
+            else if (piece.pieceName == 'K' && currentBoard[x-2][y+1].piece.pieceName == 'n')
+            {
+                return true;
+            }
+        }
+        if ((x-1)>-1 && (y-2)>-1 && currentBoard[x-1][y-2].piece.color != piece.color)
+        {
+            if (piece.pieceName == 'k' && currentBoard[x-1][y-2].piece.pieceName == 'N')
+            {
+                return true;
+            }
+            else if (piece.pieceName == 'K' && currentBoard[x-1][y-2].piece.pieceName == 'n')
+            {
+                return true;
+            }
+        }
+        if ((x-1)>-1 && (y+2)<8 && currentBoard[x-1][y+2].piece.color != piece.color)
+        {
+            if (piece.pieceName == 'k' && currentBoard[x-1][y+2].piece.pieceName == 'N')
+            {
+                return true;
+            }
+            else if (piece.pieceName == 'K' && currentBoard[x-1][y+2].piece.pieceName == 'n')
+            {
+                return true;
+            }
+        }
+        if ((x+1)<8 && (y-2)>-1 && currentBoard[x+1][y-2].piece.color != piece.color)
+        {
+            if (piece.pieceName == 'k' && currentBoard[x+1][y-2].piece.pieceName == 'N')
+            {
+                return true;
+            }
+            else if (piece.pieceName == 'K' && currentBoard[x+1][y-2].piece.pieceName == 'n')
+            {
+                return true;
+            }
+        }
+        if ((x+1)<8 && (y+2)<8 && currentBoard[x+1][y+2].piece.color != piece.color)
+        {
+            if (piece.pieceName == 'k' && currentBoard[x+1][y+2].piece.pieceName == 'N')
+            {
+                return true;
+            }
+            else if (piece.pieceName == 'K' && currentBoard[x+1][y+2].piece.pieceName == 'n')
+            {
+                return true;
+            }
+        }
+        if ((x+2)<8 && (y-1)>-1 && currentBoard[x+2][y-1].piece.color != piece.color)
+        {
+            if (piece.pieceName == 'k' && currentBoard[x+2][y-1].piece.pieceName == 'N')
+            {
+                return true;
+            }
+            else if (piece.pieceName == 'K' && currentBoard[x+2][y-1].piece.pieceName == 'n')
+            {
+                return true;
+            }
+        }
+        if ((x+2)<8 && (y+1)<8 && currentBoard[x+2][y+1].piece.color != piece.color)
+        {
+            if (piece.pieceName == 'k' && currentBoard[x+2][y+1].piece.pieceName == 'N')
+            {
+                return true;
+            }
+            else if (piece.pieceName == 'K' && currentBoard[x+2][y+1].piece.pieceName == 'n')
+            {
+                return true;
+            }
+        }
+
+        // ----------------------------------------------------------------- //
 
         // bishop
+        // up-left (--)
+        i = x-1;
+        j = y-1;
+        while (i>-1 && j>-1
+            && (currentBoard[i][j].piece.pieceName == undefined
+            || currentBoard[i][j].piece.color != piece.color))
+        {
+            if (currentBoard[i][j].piece.pieceName == 'B'
+                && piece.pieceName == 'k')
+            {
+                return true;
+            }
+            else if (currentBoard[i][j].piece.pieceName == 'b'
+                    && piece.pieceName == 'K')
+            {
+                return true;
+            }
+            else if (currentBoard[i][j].piece.pieceName != undefined)
+            {
+                break;
+            }
+            i -= 1;
+            j -= 1;
+        }
+        
+        // up-right (-+)
+        i = x-1;
+        j = y+1;
+        while (i>-1 && j<8
+            && (currentBoard[i][j].piece.pieceName == undefined
+            || currentBoard[i][j].piece.color != piece.color))
+        {
+            if (currentBoard[i][j].piece.pieceName == 'B'
+                && piece.pieceName == 'k')
+            {
+                return true;
+            }
+            else if (currentBoard[i][j].piece.pieceName == 'b'
+                    && piece.pieceName == 'K')
+            {
+                return true;
+            }
+            else if (currentBoard[i][j].piece.pieceName != undefined)
+            {
+                break;
+            }
+            i -= 1;
+            j += 1;
+        }
+
+        // down-right (++)
+        i = x+1;
+        j = y+1;
+        while (i<8 && j<8
+            && (currentBoard[i][j].piece.pieceName == undefined
+            || currentBoard[i][j].piece.color != piece.color))
+        {
+            if (currentBoard[i][j].piece.pieceName == 'B'
+                && piece.pieceName == 'k')
+            {
+                return true;
+            }
+            else if (currentBoard[i][j].piece.pieceName == 'b'
+                    && piece.pieceName == 'K')
+            {
+                return true;
+            }
+            else if (currentBoard[i][j].piece.pieceName != undefined)
+            {
+                break;
+            }
+            i += 1;
+            j += 1;
+        }
+
+        // down-left (+-)
+        i = x+1;
+        j = y-1;
+        while (i<8 && j>-1
+            && (currentBoard[i][j].piece.pieceName == undefined
+            || currentBoard[i][j].piece.color != piece.color))
+        {
+            if (currentBoard[i][j].piece.pieceName == 'B'
+                && piece.pieceName == 'k')
+            {
+                return true;
+            }
+            else if (currentBoard[i][j].piece.pieceName == 'b'
+                    && piece.pieceName == 'K')
+            {
+                return true;
+            }
+            else if (currentBoard[i][j].piece.pieceName != undefined)
+            {
+                break;
+            }
+            i += 1;
+            j -= 1;
+        }
+
+        // ----------------------------------------------------------------- //
 
         // rook
+        // up rook
+        i = x+1;
+        for (i; i<8; i++)
+        {
+            if (currentBoard[i][y].piece.pieceName == 'R'
+                && piece.pieceName == 'k')
+            {
+                return true;
+            }
+            else if (currentBoard[i][y].piece.pieceName == 'r'
+                    && piece.pieceName == 'K')
+            {
+                return true;
+            }
+            else if (currentBoard[i][y].piece.pieceName != undefined)
+            {
+                break;
+            }
+        }
+        //down rook
+        i = x-1;
+        for (i; i>-1; i--)
+        {
+            if (currentBoard[i][y].piece.pieceName == 'R'
+                && piece.pieceName == 'k')
+            {
+                return true;
+            }
+            else if (currentBoard[i][y].piece.pieceName == 'r'
+                    && piece.pieceName == 'K')
+            {
+                return true;
+            }
+            else if (currentBoard[i][y].piece.pieceName != undefined)
+            {
+                break;
+            }
+        }
+
+        //right rook
+        i = y+1;
+        for (i; i<8; i++)
+        {
+            if (currentBoard[i][y].piece.pieceName == 'R'
+                && piece.pieceName == 'k')
+            {
+                return true;
+            }
+            else if (currentBoard[i][y].piece.pieceName == 'r'
+                    && piece.pieceName == 'K')
+            {
+                return true;
+            }
+            else if (currentBoard[i][y].piece.pieceName != undefined)
+            {
+                break;
+            }
+        }
+
+        //left rook
+        i = y-1;
+        for (i; i>-1; i--)
+        {
+            if (currentBoard[x][i].piece.pieceName == 'R'
+                && piece.pieceName == 'k')
+            {
+                return true;
+            }
+            else if (currentBoard[x][i].piece.pieceName == 'r'
+                    && piece.pieceName == 'K')
+            {
+                return true;
+            }
+            else if (currentBoard[x][i].piece.pieceName != undefined)
+            {
+                break;
+            }
+        }
+
+        // ----------------------------------------------------------------- //
 
         // queen
 
+        // up queen
+        i = x+1;
+        for (i; i<8; i++)
+        {
+            if (currentBoard[i][y].piece.pieceName == 'Q'
+                && piece.pieceName == 'k')
+            {
+                return true;
+            }
+            else if (currentBoard[i][y].piece.pieceName == 'q'
+                    && piece.pieceName == 'K')
+            {
+                return true;
+            }
+            else if (currentBoard[i][y].piece.pieceName != undefined)
+            {
+                break;
+            }
+        }
+        //down queen
+        i = x-1;
+        for (i; i>-1; i--)
+        {
+            if (currentBoard[i][y].piece.pieceName == 'Q'
+                && piece.pieceName == 'k')
+            {
+                return true;
+            }
+            else if (currentBoard[i][y].piece.pieceName == 'q'
+                    && piece.pieceName == 'K')
+            {
+                return true;
+            }
+            else if (currentBoard[i][y].piece.pieceName != undefined)
+            {
+                break;
+            }
+        }
+
+        //right queen
+        i = y+1;
+        for (i; i<8; i++)
+        {
+            if (currentBoard[i][y].piece.pieceName == 'Q'
+                && piece.pieceName == 'k')
+            {
+                return true;
+            }
+            else if (currentBoard[i][y].piece.pieceName == 'q'
+                    && piece.pieceName == 'K')
+            {
+                return true;
+            }
+            else if (currentBoard[i][y].piece.pieceName != undefined)
+            {
+                break;
+            }
+        }
+
+        //left queen
+        i = y-1;
+        for (i; i>-1; i--)
+        {
+            if (currentBoard[x][i].piece.pieceName == 'Q'
+                && piece.pieceName == 'k')
+            {
+                return true;
+            }
+            else if (currentBoard[x][i].piece.pieceName == 'q'
+                    && piece.pieceName == 'K')
+            {
+                return true;
+            }
+            else if (currentBoard[x][i].piece.pieceName != undefined)
+            {
+                break;
+            }
+        }
+
+        // up-left (--)
+        i = x-1;
+        j = y-1;
+        while (i>-1 && j>-1
+            && (currentBoard[i][j].piece.pieceName == undefined
+            || currentBoard[i][j].piece.color != piece.color))
+        {
+            if (currentBoard[i][j].piece.pieceName == 'Q'
+                && piece.pieceName == 'k')
+            {
+                return true;
+            }
+            else if (currentBoard[i][j].piece.pieceName == 'q'
+                    && piece.pieceName == 'K')
+            {
+                return true;
+            }
+            else if (currentBoard[i][j].piece.pieceName != undefined)
+            {
+                break;
+            }
+            i -= 1;
+            j -= 1;
+        }
+        
+        // up-right (-+)
+        i = x-1;
+        j = y+1;
+        while (i>-1 && j<8
+            && (currentBoard[i][j].piece.pieceName == undefined
+            || currentBoard[i][j].piece.color != piece.color))
+        {
+            if (currentBoard[i][j].piece.pieceName == 'Q'
+                && piece.pieceName == 'k')
+            {
+                return true;
+            }
+            else if (currentBoard[i][j].piece.pieceName == 'q'
+                    && piece.pieceName == 'K')
+            {
+                return true;
+            }
+            else if (currentBoard[i][j].piece.pieceName != undefined)
+            {
+                break;
+            }
+            i -= 1;
+            j += 1;
+        }
+
+        // down-right (++)
+        i = x+1;
+        j = y+1;
+        while (i<8 && j<8
+            && (currentBoard[i][j].piece.pieceName == undefined
+            || currentBoard[i][j].piece.color != piece.color))
+        {
+            if (currentBoard[i][j].piece.pieceName == 'Q'
+                && piece.pieceName == 'k')
+            {
+                return true;
+            }
+            else if (currentBoard[i][j].piece.pieceName == 'q'
+                    && piece.pieceName == 'K')
+            {
+                return true;
+            }
+            else if (currentBoard[i][j].piece.pieceName != undefined)
+            {
+                break;
+            }
+            i += 1;
+            j += 1;
+        }
+
+        // down-left (+-)
+        i = x+1;
+        j = y-1;
+        while (i<8 && j>-1
+            && (currentBoard[i][j].piece.pieceName == undefined
+            || currentBoard[i][j].piece.color != piece.color))
+        {
+            if (currentBoard[i][j].piece.pieceName == 'Q'
+                && piece.pieceName == 'k')
+            {
+                return true;
+            }
+            else if (currentBoard[i][j].piece.pieceName == 'q'
+                    && piece.pieceName == 'K')
+            {
+                return true;
+            }
+            else if (currentBoard[i][j].piece.pieceName != undefined)
+            {
+                break;
+            }
+            i += 1;
+            j -= 1;
+        }
+
+        // ----------------------------------------------------------------- //
+
         // king
+        //up
+        if ((x-1)>-1 && currentBoard[x-1][y].piece.color != piece.color)
+        {
+            if (piece.pieceName == 'k' && currentBoard[x-1][y].piece.pieceName == 'K')
+            {
+                return true;
+            }
+            else if (piece.pieceName == 'K' && currentBoard[x-1][y].piece.pieceName == 'k')
+            {
+                return true;
+            }
+        }
+
+        //down
+        if ((x+1)<8 && currentBoard[x+1][y].piece.color != piece.color)
+        {
+            if (piece.pieceName == 'k' && currentBoard[x+1][y].piece.pieceName == 'K')
+            {
+                return true;
+            }
+            else if (piece.pieceName == 'K' && currentBoard[x+1][y].piece.pieceName == 'k')
+            {
+                return true;
+            }
+        }
+
+        //right
+        if ((y+1)<8 && currentBoard[x][y+1].piece.color != piece.color)
+        {
+            if (piece.pieceName == 'k' && currentBoard[x][y+1].piece.pieceName == 'K')
+            {
+                return true;
+            }
+            else if (piece.pieceName == 'K' && currentBoard[x][y+1].piece.pieceName == 'k')
+            {
+                return true;
+            }
+        }
+
+        //left
+        if ((y-1)>-1 && currentBoard[x][y-1].piece.color != piece.color)
+        {
+            if (piece.pieceName == 'k' && currentBoard[x][y-1].piece.pieceName == 'K')
+            {
+                return true;
+            }
+            else if (piece.pieceName == 'K' && currentBoard[x][y-1].piece.pieceName == 'k')
+            {
+                return true;
+            }
+        }
+
+        //up left
+        if ((x-1)>-1 && (y-1)>-1 && currentBoard[x-1][y-1].piece.color != piece.color)
+        {
+            if (piece.pieceName == 'k' && currentBoard[x-1][y-1].piece.pieceName == 'K')
+            {
+                return true;
+            }
+            else if (piece.pieceName == 'K' && currentBoard[x-1][y-1].piece.pieceName == 'k')
+            {
+                return true;
+            }
+        }
+
+        //up right
+        if ((x-1)>-1 && (y+1)<8 && currentBoard[x-1][y+1].piece.color != piece.color)
+        {
+            if (piece.pieceName == 'k' && currentBoard[x-1][y+1].piece.pieceName == 'K')
+            {
+                return true;
+            }
+            else if (piece.pieceName == 'K' && currentBoard[x-1][y+1].piece.pieceName == 'k')
+            {
+                return true;
+            }
+        }
+        
+
+        //down left
+        if ((x+1)<8 && (y-1)>-1 && currentBoard[x+1][y-1].piece.color != piece.color)
+        {
+            if (piece.pieceName == 'k' && currentBoard[x+1][y-1].piece.pieceName == 'K')
+            {
+                return true;
+            }
+            else if (piece.pieceName == 'K' && currentBoard[x+1][y-1].piece.pieceName == 'k')
+            {
+                return true;
+            }
+        }
+
+        //down right
+        if ((x+1)<8 && (y+1)<8 && currentBoard[x+1][y+1].piece.color != piece.color)
+        {
+            if (piece.pieceName == 'k' && currentBoard[x+1][y+1].piece.pieceName == 'K')
+            {
+                return true;
+            }
+            else if (piece.pieceName == 'K' && currentBoard[x+1][y+1].piece.pieceName == 'k')
+            {
+                return true;
+            }
+        }
 
         return isCheck;
     }

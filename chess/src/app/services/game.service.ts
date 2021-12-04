@@ -64,25 +64,141 @@ export class GameService {
 
   // ======================================================================== //
 
-  verifyCheck(): boolean
+  findPiece(currentBoard: any, pieceName: string)
+  {
+    let piece: Piece;
+    for (let i=0; i<8; i++)
+    {
+      for (let j=0; j<8; j++)
+      {
+        piece = currentBoard[i][j].piece;
+
+        if (piece.pieceName == pieceName)
+        {
+          return piece;
+        }
+      }
+    }
+
+    return piece;
+  }
+
+  // ======================================================================== //
+
+  verifyCheck(currentBoard: any, piece?: Piece, x?: number, y?: number): boolean
   {
     let check: boolean = false;
+
+    if (!piece)
+    {
+      if (this.playerTurn == 0)
+      {
+        piece = this.findPiece(currentBoard, 'K');
+      }
+      else if (this.playerTurn == 1)
+      {
+        piece = this.findPiece(currentBoard, 'K');
+      }
+    }
+    if (!x)
+    {
+      x = piece.arrayRow;
+    }
+    if (!y)
+    {
+      y = piece.arrayCol;
+    }
+    
+    check = piece.verifyCheck(currentBoard, piece, x, y);
+
+    if (check)
+    {
+      this.verifyCheckmate(currentBoard, piece, x, y);
+    }
 
     return check;
   }
 
   // ======================================================================== //
 
-  verifyCheckmate()
+  verifyCheckmate(currentBoard: any, piece: Piece, x: number, y: number): boolean
   {
     let check: boolean;
-    let checkMate: boolean = false;
+    let checkMate: boolean = true;
 
-    check = this.verifyCheck();
-    
     if (check)
     {
-      //do stuff
+      //up
+      let isCheck = this.verifyCheck(currentBoard, piece, x-1, y);
+      if ((x-1)>-1 && isCheck == false 
+          && (currentBoard[x-1][y].piece.pieceName == undefined
+          || currentBoard[x-1][y].piece.color != piece.color))
+      {
+        return false;
+      }
+
+      //down
+      isCheck = this.verifyCheck(currentBoard, piece, x+1, y);
+      if ((x+1)<8 && isCheck == false 
+          && (currentBoard[x+1][y].piece.pieceName == undefined
+          || currentBoard[x+1][y].piece.color != piece.color))
+      {
+        return false;
+      }
+
+      //right
+      isCheck = this.verifyCheck(currentBoard, piece, x, y+1);
+      if ((y+1)<8 && isCheck == false 
+          && (currentBoard[x][y+1].piece.pieceName == undefined
+          || currentBoard[x][y+1].piece.color != piece.color))
+      {
+        return false;
+      }
+
+      //left
+      isCheck = this.verifyCheck(currentBoard, piece, x, y-1);
+      if ((y-1)>-1 && isCheck == false 
+          && (currentBoard[x][y-1].piece.pieceName == undefined
+          || currentBoard[x][y-1].piece.color != piece.color))
+      {
+        return false;
+      }
+
+      //up left
+      isCheck = this.verifyCheck(currentBoard, piece, x-1, y-1);
+      if ((x-1)>-1 && (y-1)>-1 && isCheck == false 
+          && (currentBoard[x-1][y-1].piece.pieceName == undefined
+          || currentBoard[x-1][y-1].piece.color != piece.color))
+      {
+        return false;
+      }
+
+      //up right
+      isCheck = this.verifyCheck(currentBoard, piece, x-1, y+1);
+      if ((x-1)>-1 && (y+1)<8 && isCheck == false 
+          && (currentBoard[x-1][y+1].piece.pieceName == undefined
+          || currentBoard[x-1][y+1].piece.color != piece.color))
+      {
+        return false;
+      }
+      
+      //down left
+      isCheck = this.verifyCheck(currentBoard, piece, x+1, y-1);
+      if ((x+1)<8 && (y-1)>-1 && isCheck == false 
+          && (currentBoard[x+1][y-1].piece.pieceName == undefined
+          || currentBoard[x+1][y-1].piece.color != piece.color))
+      {
+        return false;
+      }
+
+      //down right
+      isCheck = this.verifyCheck(currentBoard, piece, x+1, y+1);
+      if ((x+1)<8 && (y+1)<8 &&  isCheck == false 
+          && (currentBoard[x+1][y+1].piece.pieceName == undefined
+          || currentBoard[x+1][y+1].piece.color != piece.color))
+      {
+        return false;
+      }
     }
 
     return checkMate;
