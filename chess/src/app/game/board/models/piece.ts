@@ -12,10 +12,6 @@ export class Piece {
 
     constructor (name: string, row: number, col: number)
     {
-        if (name == '0')
-        {
-            return undefined;
-        }
         this.pieceName = name;
         this.graphic = this.initGraphic(name);
         this.arrayRow = row;
@@ -87,17 +83,17 @@ export class Piece {
     getColor(name: string)
     {
         let theColor: number;
-        if (this.isUpper(name))
+        if (name == '0')
+        {
+            theColor = 2;
+        }
+        else if (this.isUpper(name))
         {
             theColor = 0;
         }
         else if (this.isLower(name))
         {
             theColor = 1;
-        }
-        else
-        {
-            theColor = undefined;
         }
 
         return theColor;
@@ -183,24 +179,62 @@ export class Piece {
 
     getWhitePawnMoves(currentBoard: any, piece: Piece, x: number, y: number): void
     {
+        let testBoard: any;
+        let causesCheck: boolean;
+        let tempPiece: Piece;
+
+        testBoard = JSON.parse(JSON.stringify(currentBoard));
+        
         if (piece.hasMoved == false)
         {
-            if (currentBoard[x-2][y].piece.pieceName == undefined)
+            if (currentBoard[x-2][y].piece.pieceName == '0')
             {
-                currentBoard[x-2][y].canDrop = true;
+                tempPiece = currentBoard[x-2][y].piece;
+                testBoard[x-2][y].piece = piece;
+                testBoard[x][y].piece = tempPiece;
+
+                causesCheck = this.verifyCheck(testBoard);
+                if (causesCheck == false)
+                {
+                    currentBoard[x-2][y].canDrop = true;
+                }
             }
         }
-        if ((x-1)>-1 && currentBoard[x-1][y].piece.pieceName == undefined)
+        if ((x-1)>-1 && currentBoard[x-1][y].piece.pieceName == '0')
         {
-            currentBoard[x-1][y].canDrop = true;
+            tempPiece = currentBoard[x-1][y].piece;
+            testBoard[x-1][y].piece= piece;
+            testBoard[x][y].piece= tempPiece;
+            causesCheck = this.verifyCheck(testBoard);
+
+            if (causesCheck == false)
+            {
+                currentBoard[x-1][y].canDrop = true;
+            }
         }
         if ((x-1)>-1 && (y-1)>-1 && currentBoard[x-1][y-1].piece.color == 1)
         {
-            currentBoard[x-1][y-1].canDrop = true;
+            tempPiece = currentBoard[x-1][y-1].piece;
+            testBoard[x-1][y-1].piece= piece;
+            testBoard[x][y].piece= tempPiece;
+            causesCheck = this.verifyCheck(testBoard);
+
+            if (causesCheck == false)
+            {
+                currentBoard[x-1][y-1].canDrop = true;
+            }
         }
         if ((x-1)>-1 && (y+1)<8 && currentBoard[x-1][y+1].piece.color == 1)
         {
-            currentBoard[x-1][y+1].canDrop = true;
+            tempPiece = currentBoard[x-1][y+1].piece;
+            testBoard[x-1][y+1].piece= piece;
+            testBoard[x][y].piece= tempPiece;
+            causesCheck = this.verifyCheck(testBoard);
+
+            if (causesCheck == false)
+            {
+                currentBoard[x-1][y+1].canDrop = true;
+            }
         }
     }
     
@@ -208,24 +242,62 @@ export class Piece {
 
     getBlackPawnMoves(currentBoard: any, piece: Piece, x: number, y: number): void
     {
+        let testBoard: any;
+        let causesCheck: boolean;
+        let tempPiece: Piece;
+
+        testBoard = JSON.parse(JSON.stringify(currentBoard));
+
         if (piece.hasMoved == false)
         {
-            if (currentBoard[x+2][y].piece.pieceName == undefined)
+            if (currentBoard[x+2][y].piece.pieceName == '0')
             {
-                currentBoard[x+2][y].canDrop = true;
+                tempPiece = currentBoard[x+2][y].piece;
+                testBoard[x+2][y].piece= piece;
+                testBoard[x][y].piece= tempPiece;
+                causesCheck = this.verifyCheck(testBoard);
+
+                if (causesCheck == false)
+                {
+                    currentBoard[x+2][y].canDrop = true;
+                }
             }
         }
-        if ((x+1)<8 && currentBoard[x+1][y].piece.pieceName == undefined)
+        if ((x+1)<8 && currentBoard[x+1][y].piece.pieceName == '0')
         {
-            currentBoard[x+1][y].canDrop = true;
+            tempPiece = currentBoard[x+1][y].piece;
+            testBoard[x+1][y].piece= piece;
+            testBoard[x][y].piece= tempPiece;
+            causesCheck = this.verifyCheck(testBoard);
+
+            if (causesCheck == false)
+            {
+                currentBoard[x+1][y].canDrop = true;
+            }
         }
         if ((x+1)<8 && (y-1)>-1 && currentBoard[x+1][y-1].piece.color == 0)
         {
-            currentBoard[x+1][y-1].canDrop = true;
+            tempPiece = currentBoard[x+1][y-1].piece;
+            testBoard[x+1][y-1].piece= piece;
+            testBoard[x][y].piece= tempPiece;
+            causesCheck = this.verifyCheck(testBoard);
+
+            if (causesCheck == false)
+            {
+                currentBoard[x+1][y-1].canDrop = true;
+            }
         }
         if ((x+1)<8 && (y+1)<8 && currentBoard[x+1][y+1].piece.color == 0)
         {
-            currentBoard[x+1][y+1].canDrop = true;
+            tempPiece = currentBoard[x+1][y+1].piece;
+            testBoard[x+1][y+1].piece= piece;
+            testBoard[x][y].piece= tempPiece;
+            causesCheck = this.verifyCheck(testBoard);
+
+            if (causesCheck == false)
+            {
+                currentBoard[x+1][y+1].canDrop = true;
+            }
         }
     }
     
@@ -233,37 +305,107 @@ export class Piece {
 
     getKnightMoves(currentBoard: any, piece: Piece, x: number, y: number)
     {
+        let testBoard: any;
+        let causesCheck: boolean;
+        let tempPiece: Piece;
+
+        testBoard = JSON.parse(JSON.stringify(currentBoard));
+
         if ((x-2)>-1 && (y-1)>-1 && currentBoard[x-2][y-1].piece.color != piece.color)
         {
-            currentBoard[x-2][y-1].canDrop = true;
+            tempPiece = currentBoard[x-2][y-1].piece;
+            testBoard[x-2][y-1].piece= piece;
+            testBoard[x][y].piece= tempPiece;
+            causesCheck = this.verifyCheck(testBoard);
+
+            if (causesCheck == false)
+            {
+                currentBoard[x-2][y-1].canDrop = true;
+            }
         }
         if ((x-2)>-1 && (y+1)<8 && currentBoard[x-2][y+1].piece.color != piece.color)
         {
-            currentBoard[x-2][y+1].canDrop = true;
+            tempPiece = currentBoard[x-2][y+1].piece;
+            testBoard[x-2][y+1].piece= piece;
+            testBoard[x][y].piece= tempPiece;
+            causesCheck = this.verifyCheck(testBoard);
+
+            if (causesCheck == false)
+            {
+                currentBoard[x-2][y+1].canDrop = true;
+            }
         }
         if ((x-1)>-1 && (y-2)>-1 && currentBoard[x-1][y-2].piece.color != piece.color)
         {
-            currentBoard[x-1][y-2].canDrop = true;
+            tempPiece = currentBoard[x-1][y-2].piece;
+            testBoard[x-1][y-2].piece= piece;
+            testBoard[x][y].piece= tempPiece;
+            causesCheck = this.verifyCheck(testBoard);
+
+            if (causesCheck == false)
+            {
+                currentBoard[x-1][y-2].canDrop = true;
+            }
         }
         if ((x-1)>-1 && (y+2)<8 && currentBoard[x-1][y+2].piece.color != piece.color)
         {
-            currentBoard[x-1][y+2].canDrop = true;
+            tempPiece = currentBoard[x-1][y+2].piece;
+            testBoard[x-1][y+2].piece= piece;
+            testBoard[x][y].piece= tempPiece;
+            causesCheck = this.verifyCheck(testBoard);
+
+            if (causesCheck == false)
+            {
+                currentBoard[x-1][y+2].canDrop = true;
+            }
         }
         if ((x+1)<8 && (y-2)>-1 && currentBoard[x+1][y-2].piece.color != piece.color)
         {
-            currentBoard[x+1][y-2].canDrop = true;
+            tempPiece = currentBoard[x+1][y-2].piece;
+            testBoard[x+1][y-2].piece= piece;
+            testBoard[x][y].piece= tempPiece;
+            causesCheck = this.verifyCheck(testBoard);
+
+            if (causesCheck == false)
+            {
+                currentBoard[x+1][y-2].canDrop = true;
+            }
         }
         if ((x+1)<8 && (y+2)<8 && currentBoard[x+1][y+2].piece.color != piece.color)
         {
-            currentBoard[x+1][y+2].canDrop = true;
+            tempPiece = currentBoard[x+1][y+2].piece;
+            testBoard[x+1][y+2].piece= piece;
+            testBoard[x][y].piece= tempPiece;
+            causesCheck = this.verifyCheck(testBoard);
+
+            if (causesCheck == false)
+            {
+                currentBoard[x+1][y+2].canDrop = true;
+            }
         }
         if ((x+2)<8 && (y-1)>-1 && currentBoard[x+2][y-1].piece.color != piece.color)
         {
-            currentBoard[x+2][y-1].canDrop = true;
+            tempPiece = currentBoard[x+2][y-1].piece;
+            testBoard[x+2][y-1].piece= piece;
+            testBoard[x][y].piece= tempPiece;
+            causesCheck = this.verifyCheck(testBoard);
+
+            if (causesCheck == false)
+            {
+                currentBoard[x+2][y-1].canDrop = true;
+            }
         }
         if ((x+2)<8 && (y+1)<8 && currentBoard[x+2][y+1].piece.color != piece.color)
         {
-            currentBoard[x+2][y+1].canDrop = true;
+            tempPiece = currentBoard[x+2][y+1].piece;
+            testBoard[x+2][y+1].piece= piece;
+            testBoard[x][y].piece= tempPiece;
+            causesCheck = this.verifyCheck(testBoard);
+
+            if (causesCheck == false)
+            {
+                currentBoard[x+2][y+1].canDrop = true;
+            }
         }
     }
     
@@ -271,19 +413,33 @@ export class Piece {
 
     getBishopMoves(currentBoard: any, piece: Piece, x: number, y: number)
     {
+        let testBoard: any;
+        let causesCheck: boolean;
+        let tempPiece: Piece;
+
+        testBoard = JSON.parse(JSON.stringify(currentBoard));
+        
         // up-left (--)
         let i = x-1;
         let j = y-1;
         while (i>-1 && j>-1
-            && (currentBoard[i][j].piece.pieceName == undefined
+            && (currentBoard[i][j].piece.pieceName == '0'
             || currentBoard[i][j].piece.color != piece.color))
         {
-            if (currentBoard[i][j].piece.color != undefined)
+            tempPiece = currentBoard[i][j].piece;
+            testBoard[i][j].piece= piece;
+            testBoard[x][y].piece= tempPiece;
+            causesCheck = this.verifyCheck(testBoard);
+
+            if (causesCheck == false)
             {
+                if (currentBoard[i][j].piece.color != 2)
+                {
+                    currentBoard[i][j].canDrop = true;
+                    break;
+                }
                 currentBoard[i][j].canDrop = true;
-                break;
             }
-            currentBoard[i][j].canDrop = true;
             i -= 1;
             j -= 1;
         }
@@ -292,15 +448,23 @@ export class Piece {
         i = x-1;
         j = y+1;
         while (i>-1 && j<8
-            && (currentBoard[i][j].piece.pieceName == undefined
+            && (currentBoard[i][j].piece.pieceName == '0'
             || currentBoard[i][j].piece.color != piece.color))
         {
-            if (currentBoard[i][j].piece.color != undefined)
+            tempPiece = currentBoard[i][j].piece;
+            testBoard[i][j].piece= piece;
+            testBoard[x][y].piece= tempPiece;
+            causesCheck = this.verifyCheck(testBoard);
+
+            if (causesCheck == false)
             {
+                if (currentBoard[i][j].piece.color != 2)
+                {
+                    currentBoard[i][j].canDrop = true;
+                    break;
+                }
                 currentBoard[i][j].canDrop = true;
-                break;
             }
-            currentBoard[i][j].canDrop = true;
             i -= 1;
             j += 1;
         }
@@ -309,15 +473,23 @@ export class Piece {
         i = x+1;
         j = y+1;
         while (i<8 && j<8
-            && (currentBoard[i][j].piece.pieceName == undefined
+            && (currentBoard[i][j].piece.pieceName == '0'
             || currentBoard[i][j].piece.color != piece.color))
         {
-            if (currentBoard[i][j].piece.color != undefined)
+            tempPiece = currentBoard[i][j].piece;
+            testBoard[i][j].piece= piece;
+            testBoard[x][y].piece= tempPiece;
+            causesCheck = this.verifyCheck(testBoard);
+
+            if (causesCheck == false)
             {
+                if (currentBoard[i][j].piece.color != 2)
+                {
+                    currentBoard[i][j].canDrop = true;
+                    break;
+                }
                 currentBoard[i][j].canDrop = true;
-                break;
             }
-            currentBoard[i][j].canDrop = true;
             i += 1;
             j += 1;
         }
@@ -326,15 +498,23 @@ export class Piece {
         i = x+1;
         j = y-1;
         while (i<8 && j>-1
-            && (currentBoard[i][j].piece.pieceName == undefined
+            && (currentBoard[i][j].piece.pieceName == '0'
             || currentBoard[i][j].piece.color != piece.color))
         {
-            if (currentBoard[i][j].piece.color != undefined)
+            tempPiece = currentBoard[i][j].piece;
+            testBoard[i][j].piece= piece;
+            testBoard[x][y].piece= tempPiece;
+            causesCheck = this.verifyCheck(testBoard);
+
+            if (causesCheck == false)
             {
+                if (currentBoard[i][j].piece.color != 2)
+                {
+                    currentBoard[i][j].canDrop = true;
+                    break;
+                }
                 currentBoard[i][j].canDrop = true;
-                break;
             }
-            currentBoard[i][j].canDrop = true;
             i += 1;
             j -= 1;
         }
@@ -344,62 +524,100 @@ export class Piece {
 
     getRookMoves(currentBoard: any, piece, x: number, y: number)
     {
+        let testBoard: any;
+        let causesCheck: boolean;
+        let tempPiece: Piece;
+
+        testBoard = JSON.parse(JSON.stringify(currentBoard));
+        
         //rook downboard
         let i = x+1;
         let j = y;
-        while (i<8 && (currentBoard[i][j].piece.pieceName == undefined
+        while (i<8 && (currentBoard[i][j].piece.pieceName == '0'
             || currentBoard[i][j].piece.color != piece.color))
         {    
-            if (currentBoard[i][j].piece.color != undefined)
+            tempPiece = currentBoard[i][j].piece;
+            testBoard[i][j].piece= piece;
+            testBoard[x][y].piece= tempPiece;
+            causesCheck = this.verifyCheck(testBoard);
+
+            if (causesCheck == false)
             {
+                if (currentBoard[i][j].piece.color != 2)
+                {
+                    currentBoard[i][j].canDrop = true;
+                    break;
+                }
                 currentBoard[i][j].canDrop = true;
-                break;
             }
-            currentBoard[i][j].canDrop = true;
             i += 1;
         }
         //rook upboard
         i = x-1;
         j = y;
-        while (i>-1 && (currentBoard[i][j].piece.pieceName == undefined
+        while (i>-1 && (currentBoard[i][j].piece.pieceName == '0'
             || currentBoard[i][j].piece.color != piece.color))
         {    
-            if (currentBoard[i][j].piece.color != undefined)
+            tempPiece = currentBoard[i][j].piece;
+            testBoard[i][j].piece= piece;
+            testBoard[x][y].piece= tempPiece;
+            causesCheck = this.verifyCheck(testBoard);
+
+            if (causesCheck == false)
             {
+                if (currentBoard[i][j].piece.color != 2)
+                {
+                    currentBoard[i][j].canDrop = true;
+                    break;
+                }
                 currentBoard[i][j].canDrop = true;
-                break;
             }
-            currentBoard[i][j].canDrop = true;
             i -= 1;
         }
 
         //rook right
         i = x;
         j = y+1;
-        while (j<8 && (currentBoard[i][j].piece.pieceName == undefined
+        while (j<8 && (currentBoard[i][j].piece.pieceName == '0'
             || currentBoard[i][j].piece.color != piece.color))
         {    
-            if (currentBoard[i][j].piece.color != undefined)
+            tempPiece = currentBoard[i][j].piece;
+            testBoard[i][j].piece= piece;
+            testBoard[x][y].piece= tempPiece;
+            causesCheck = this.verifyCheck(testBoard);
+
+            if (causesCheck == false)
             {
+                if (currentBoard[i][j].piece.color != 2)
+                {
+                    currentBoard[i][j].canDrop = true;
+                    break;
+                }
                 currentBoard[i][j].canDrop = true;
-                break;
             }
-            currentBoard[i][j].canDrop = true;
             j += 1;
         }
 
         //rook left
         i = x;
         j = y-1;
-        while (j>-1 && (currentBoard[i][j].piece.pieceName == undefined
+        while (j>-1 && (currentBoard[i][j].piece.pieceName == '0'
             || currentBoard[i][j].piece.color != piece.color))
         {    
-            if (currentBoard[i][j].piece.color != undefined)
+            tempPiece = currentBoard[i][j].piece;
+            testBoard[i][j].piece= piece;
+            testBoard[x][y].piece= tempPiece;
+            causesCheck = this.verifyCheck(testBoard);
+
+            if (causesCheck == false)
             {
+                if (currentBoard[i][j].piece.color != 2)
+                {
+                    currentBoard[i][j].canDrop = true;
+                    break;
+                }
                 currentBoard[i][j].canDrop = true;
-                break;
             }
-            currentBoard[i][j].canDrop = true;
             j -= 1;
         }
     }
@@ -411,7 +629,7 @@ export class Piece {
         //up
         let isCheck = this.verifyCheck(currentBoard, piece, x-1, y);
         if ((x-1)>-1 && isCheck == false 
-            && (currentBoard[x-1][y].piece.pieceName == undefined
+            && (currentBoard[x-1][y].piece.pieceName == '0'
             || currentBoard[x-1][y].piece.color != piece.color))
         {
             currentBoard[x-1][y].canDrop = true;
@@ -420,7 +638,7 @@ export class Piece {
         //down
         isCheck = this.verifyCheck(currentBoard, piece, x+1, y);
         if ((x+1)<8 && isCheck == false 
-            && (currentBoard[x+1][y].piece.pieceName == undefined
+            && (currentBoard[x+1][y].piece.pieceName == '0'
             || currentBoard[x+1][y].piece.color != piece.color))
         {
             currentBoard[x+1][y].canDrop = true;
@@ -429,7 +647,7 @@ export class Piece {
         //right
         isCheck = this.verifyCheck(currentBoard, piece, x, y+1);
         if ((y+1)<8 && isCheck == false 
-            && (currentBoard[x][y+1].piece.pieceName == undefined
+            && (currentBoard[x][y+1].piece.pieceName == '0'
             || currentBoard[x][y+1].piece.color != piece.color))
         {
             currentBoard[x][y+1].canDrop = true;
@@ -438,7 +656,7 @@ export class Piece {
         //left
         isCheck = this.verifyCheck(currentBoard, piece, x, y-1);
         if ((y-1)>-1 && isCheck == false 
-            && (currentBoard[x][y-1].piece.pieceName == undefined
+            && (currentBoard[x][y-1].piece.pieceName == '0'
             || currentBoard[x][y-1].piece.color != piece.color))
         {
             currentBoard[x][y-1].canDrop = true;
@@ -447,7 +665,7 @@ export class Piece {
         //up left
         isCheck = this.verifyCheck(currentBoard, piece, x-1, y-1);
         if ((x-1)>-1 && (y-1)>-1 && isCheck == false 
-            && (currentBoard[x-1][y-1].piece.pieceName == undefined
+            && (currentBoard[x-1][y-1].piece.pieceName == '0'
             || currentBoard[x-1][y-1].piece.color != piece.color))
         {
             currentBoard[x-1][y-1].canDrop = true;
@@ -456,7 +674,7 @@ export class Piece {
         //up right
         isCheck = this.verifyCheck(currentBoard, piece, x-1, y+1);
         if ((x-1)>-1 && (y+1)<8 && isCheck == false 
-            && (currentBoard[x-1][y+1].piece.pieceName == undefined
+            && (currentBoard[x-1][y+1].piece.pieceName == '0'
             || currentBoard[x-1][y+1].piece.color != piece.color))
         {
             currentBoard[x-1][y+1].canDrop = true;
@@ -466,7 +684,7 @@ export class Piece {
         //down left
         isCheck = this.verifyCheck(currentBoard, piece, x+1, y-1);
         if ((x+1)<8 && (y-1)>-1 && isCheck == false 
-            && (currentBoard[x+1][y-1].piece.pieceName == undefined
+            && (currentBoard[x+1][y-1].piece.pieceName == '0'
             || currentBoard[x+1][y-1].piece.color != piece.color))
         {
             currentBoard[x+1][y-1].canDrop = true;
@@ -475,7 +693,7 @@ export class Piece {
         //down right
         isCheck = this.verifyCheck(currentBoard, piece, x+1, y+1);
         if ((x+1)<8 && (y+1)<8 &&  isCheck == false 
-            && (currentBoard[x+1][y+1].piece.pieceName == undefined
+            && (currentBoard[x+1][y+1].piece.pieceName == '0'
             || currentBoard[x+1][y+1].piece.color != piece.color))
         {
             currentBoard[x+1][y+1].canDrop = true;
@@ -506,11 +724,27 @@ export class Piece {
     
     // ======================================================================== //
 
-    verifyCheck(currentBoard: any, piece: Piece, x: number, y: number): boolean
+    verifyCheck(currentBoard: any, piece?: Piece, x?: number, y?: number): boolean
     {
         let isCheck: boolean = false;
+        let name: string;
         let i: number;
         let j: number;
+
+        if (piece == undefined)
+        {
+            if (this.color == 0)
+            {
+                name = 'K';
+            }
+            else if (this.color == 1)
+            {
+                name = 'k';
+            }
+            piece = this.findPiece(currentBoard, name);
+            x = piece.arrayRow;
+            y = piece.arrayCol;
+        }
 
         if (x>7 || x<0 || y>7 || y<0)
         {
@@ -636,7 +870,7 @@ export class Piece {
         i = x-1;
         j = y-1;
         while (i>-1 && j>-1
-            && (currentBoard[i][j].piece.pieceName == undefined
+            && (currentBoard[i][j].piece.pieceName == '0'
             || currentBoard[i][j].piece.color != piece.color))
         {
             if (currentBoard[i][j].piece.pieceName == 'B'
@@ -649,7 +883,7 @@ export class Piece {
             {
                 return true;
             }
-            else if (currentBoard[i][j].piece.pieceName != undefined)
+            else if (currentBoard[i][j].piece.pieceName != '0')
             {
                 break;
             }
@@ -661,7 +895,7 @@ export class Piece {
         i = x-1;
         j = y+1;
         while (i>-1 && j<8
-            && (currentBoard[i][j].piece.pieceName == undefined
+            && (currentBoard[i][j].piece.pieceName == '0'
             || currentBoard[i][j].piece.color != piece.color))
         {
             if (currentBoard[i][j].piece.pieceName == 'B'
@@ -674,7 +908,7 @@ export class Piece {
             {
                 return true;
             }
-            else if (currentBoard[i][j].piece.pieceName != undefined)
+            else if (currentBoard[i][j].piece.pieceName != '0')
             {
                 break;
             }
@@ -686,7 +920,7 @@ export class Piece {
         i = x+1;
         j = y+1;
         while (i<8 && j<8
-            && (currentBoard[i][j].piece.pieceName == undefined
+            && (currentBoard[i][j].piece.pieceName == '0'
             || currentBoard[i][j].piece.color != piece.color))
         {
             if (currentBoard[i][j].piece.pieceName == 'B'
@@ -699,7 +933,7 @@ export class Piece {
             {
                 return true;
             }
-            else if (currentBoard[i][j].piece.pieceName != undefined)
+            else if (currentBoard[i][j].piece.pieceName != '0')
             {
                 break;
             }
@@ -711,7 +945,7 @@ export class Piece {
         i = x+1;
         j = y-1;
         while (i<8 && j>-1
-            && (currentBoard[i][j].piece.pieceName == undefined
+            && (currentBoard[i][j].piece.pieceName == '0'
             || currentBoard[i][j].piece.color != piece.color))
         {
             if (currentBoard[i][j].piece.pieceName == 'B'
@@ -724,7 +958,7 @@ export class Piece {
             {
                 return true;
             }
-            else if (currentBoard[i][j].piece.pieceName != undefined)
+            else if (currentBoard[i][j].piece.pieceName != '0')
             {
                 break;
             }
@@ -749,7 +983,7 @@ export class Piece {
             {
                 return true;
             }
-            else if (currentBoard[i][y].piece.pieceName != undefined)
+            else if (currentBoard[i][y].piece.pieceName != '0')
             {
                 break;
             }
@@ -768,7 +1002,7 @@ export class Piece {
             {
                 return true;
             }
-            else if (currentBoard[i][y].piece.pieceName != undefined)
+            else if (currentBoard[i][y].piece.pieceName != '0')
             {
                 break;
             }
@@ -788,7 +1022,7 @@ export class Piece {
             {
                 return true;
             }
-            else if (currentBoard[i][y].piece.pieceName != undefined)
+            else if (currentBoard[i][y].piece.pieceName != '0')
             {
                 break;
             }
@@ -808,7 +1042,7 @@ export class Piece {
             {
                 return true;
             }
-            else if (currentBoard[x][i].piece.pieceName != undefined)
+            else if (currentBoard[x][i].piece.pieceName != '0')
             {
                 break;
             }
@@ -832,7 +1066,7 @@ export class Piece {
             {
                 return true;
             }
-            else if (currentBoard[i][y].piece.pieceName != undefined)
+            else if (currentBoard[i][y].piece.pieceName != '0')
             {
                 break;
             }
@@ -851,7 +1085,7 @@ export class Piece {
             {
                 return true;
             }
-            else if (currentBoard[i][y].piece.pieceName != undefined)
+            else if (currentBoard[i][y].piece.pieceName != '0')
             {
                 break;
             }
@@ -871,7 +1105,7 @@ export class Piece {
             {
                 return true;
             }
-            else if (currentBoard[i][y].piece.pieceName != undefined)
+            else if (currentBoard[i][y].piece.pieceName != '0')
             {
                 break;
             }
@@ -891,7 +1125,7 @@ export class Piece {
             {
                 return true;
             }
-            else if (currentBoard[x][i].piece.pieceName != undefined)
+            else if (currentBoard[x][i].piece.pieceName != '0')
             {
                 break;
             }
@@ -901,7 +1135,7 @@ export class Piece {
         i = x-1;
         j = y-1;
         while (i>-1 && j>-1
-            && (currentBoard[i][j].piece.pieceName == undefined
+            && (currentBoard[i][j].piece.pieceName == '0'
             || currentBoard[i][j].piece.color != piece.color))
         {
             if (currentBoard[i][j].piece.pieceName == 'Q'
@@ -914,7 +1148,7 @@ export class Piece {
             {
                 return true;
             }
-            else if (currentBoard[i][j].piece.pieceName != undefined)
+            else if (currentBoard[i][j].piece.pieceName != '0')
             {
                 break;
             }
@@ -926,7 +1160,7 @@ export class Piece {
         i = x-1;
         j = y+1;
         while (i>-1 && j<8
-            && (currentBoard[i][j].piece.pieceName == undefined
+            && (currentBoard[i][j].piece.pieceName == '0'
             || currentBoard[i][j].piece.color != piece.color))
         {
             if (currentBoard[i][j].piece.pieceName == 'Q'
@@ -939,7 +1173,7 @@ export class Piece {
             {
                 return true;
             }
-            else if (currentBoard[i][j].piece.pieceName != undefined)
+            else if (currentBoard[i][j].piece.pieceName != '0')
             {
                 break;
             }
@@ -951,7 +1185,7 @@ export class Piece {
         i = x+1;
         j = y+1;
         while (i<8 && j<8
-            && (currentBoard[i][j].piece.pieceName == undefined
+            && (currentBoard[i][j].piece.pieceName == '0'
             || currentBoard[i][j].piece.color != piece.color))
         {
             if (currentBoard[i][j].piece.pieceName == 'Q'
@@ -964,7 +1198,7 @@ export class Piece {
             {
                 return true;
             }
-            else if (currentBoard[i][j].piece.pieceName != undefined)
+            else if (currentBoard[i][j].piece.pieceName != '0')
             {
                 break;
             }
@@ -976,7 +1210,7 @@ export class Piece {
         i = x+1;
         j = y-1;
         while (i<8 && j>-1
-            && (currentBoard[i][j].piece.pieceName == undefined
+            && (currentBoard[i][j].piece.pieceName == '0'
             || currentBoard[i][j].piece.color != piece.color))
         {
             if (currentBoard[i][j].piece.pieceName == 'Q'
@@ -989,7 +1223,7 @@ export class Piece {
             {
                 return true;
             }
-            else if (currentBoard[i][j].piece.pieceName != undefined)
+            else if (currentBoard[i][j].piece.pieceName != '0')
             {
                 break;
             }
@@ -1106,6 +1340,28 @@ export class Piece {
         }
 
         return isCheck;
+    }
+
+    // ======================================================================== //
+    
+    findPiece(currentBoard: any, pieceName: string)
+    {
+        let piece: Piece;
+
+        for (let i=0; i<8; i++)
+        {
+            for (let j=0; j<8; j++)
+            {
+                piece = currentBoard[i][j].piece;
+
+                if (piece.pieceName == pieceName)
+                {
+                    return piece;
+                }
+            }
+        }
+
+        return piece;
     }
 
     // ======================================================================== //

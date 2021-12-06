@@ -220,10 +220,6 @@ export class BoardComponent implements OnInit {
       for (let j=0; j<8; j++)
       {
         square = this.gameBoard[i][j];
-        if (square.piece == undefined)
-        {
-          continue;
-        }
         if (this._gameService.playerTurn == square.piece.color)
         {
           square.disabled = false;

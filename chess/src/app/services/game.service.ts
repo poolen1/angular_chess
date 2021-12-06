@@ -131,7 +131,7 @@ export class GameService {
       //up
       let isCheck = this.verifyCheck(currentBoard, piece, x-1, y);
       if ((x-1)>-1 && isCheck == false 
-          && (currentBoard[x-1][y].piece.pieceName == undefined
+          && (currentBoard[x-1][y].piece.pieceName == 2
           || currentBoard[x-1][y].piece.color != piece.color))
       {
         return false;
@@ -140,7 +140,7 @@ export class GameService {
       //down
       isCheck = this.verifyCheck(currentBoard, piece, x+1, y);
       if ((x+1)<8 && isCheck == false 
-          && (currentBoard[x+1][y].piece.pieceName == undefined
+          && (currentBoard[x+1][y].piece.pieceName == 2
           || currentBoard[x+1][y].piece.color != piece.color))
       {
         return false;
@@ -149,7 +149,7 @@ export class GameService {
       //right
       isCheck = this.verifyCheck(currentBoard, piece, x, y+1);
       if ((y+1)<8 && isCheck == false 
-          && (currentBoard[x][y+1].piece.pieceName == undefined
+          && (currentBoard[x][y+1].piece.pieceName == '0'
           || currentBoard[x][y+1].piece.color != piece.color))
       {
         return false;
@@ -158,7 +158,7 @@ export class GameService {
       //left
       isCheck = this.verifyCheck(currentBoard, piece, x, y-1);
       if ((y-1)>-1 && isCheck == false 
-          && (currentBoard[x][y-1].piece.pieceName == undefined
+          && (currentBoard[x][y-1].piece.pieceName == '0'
           || currentBoard[x][y-1].piece.color != piece.color))
       {
         return false;
@@ -167,7 +167,7 @@ export class GameService {
       //up left
       isCheck = this.verifyCheck(currentBoard, piece, x-1, y-1);
       if ((x-1)>-1 && (y-1)>-1 && isCheck == false 
-          && (currentBoard[x-1][y-1].piece.pieceName == undefined
+          && (currentBoard[x-1][y-1].piece.pieceName == '0'
           || currentBoard[x-1][y-1].piece.color != piece.color))
       {
         return false;
@@ -176,7 +176,7 @@ export class GameService {
       //up right
       isCheck = this.verifyCheck(currentBoard, piece, x-1, y+1);
       if ((x-1)>-1 && (y+1)<8 && isCheck == false 
-          && (currentBoard[x-1][y+1].piece.pieceName == undefined
+          && (currentBoard[x-1][y+1].piece.pieceName == '0'
           || currentBoard[x-1][y+1].piece.color != piece.color))
       {
         return false;
@@ -185,7 +185,7 @@ export class GameService {
       //down left
       isCheck = this.verifyCheck(currentBoard, piece, x+1, y-1);
       if ((x+1)<8 && (y-1)>-1 && isCheck == false 
-          && (currentBoard[x+1][y-1].piece.pieceName == undefined
+          && (currentBoard[x+1][y-1].piece.pieceName == '0'
           || currentBoard[x+1][y-1].piece.color != piece.color))
       {
         return false;
@@ -194,7 +194,7 @@ export class GameService {
       //down right
       isCheck = this.verifyCheck(currentBoard, piece, x+1, y+1);
       if ((x+1)<8 && (y+1)<8 &&  isCheck == false 
-          && (currentBoard[x+1][y+1].piece.pieceName == undefined
+          && (currentBoard[x+1][y+1].piece.pieceName == '0'
           || currentBoard[x+1][y+1].piece.color != piece.color))
       {
         return false;
