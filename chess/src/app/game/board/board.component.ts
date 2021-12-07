@@ -73,12 +73,26 @@ export class BoardComponent implements OnInit {
           this.disableDropSquares();
           this.getPlayerTurn();  
 
-          this._gameService.isCheck = this._gameService.verifyCheck(this.gameBoard);
-          if (this._gameService.isCheck)
+          if (this._gameService.playerTurn == 0)
           {
-            if (this._gameService.isCheckmate)
+            this._gameService.isCheckWhite = this._gameService.verifyCheck(this.gameBoard);
+            if (this._gameService.isCheckWhite)
             {
-              //endgame logic
+              if (this._gameService.isCheckmate)
+              {
+                //endgame logic
+              }
+            }
+          }
+          if (this._gameService.playerTurn == 1)
+          {
+            this._gameService.isCheckBlack = this._gameService.verifyCheck(this.gameBoard);
+            if (this._gameService.isCheckBlack)
+            {
+              if (this._gameService.isCheckmate)
+              {
+                //endgame logic
+              }
             }
           }
         }

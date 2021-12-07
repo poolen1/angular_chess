@@ -16,7 +16,8 @@ export class GameService {
 
   canCastleLeft: boolean;
   canCastleRight: boolean;
-  isCheck: boolean;
+  isCheckWhite: boolean;
+  isCheckBlack: boolean;
   isCheckmate: boolean;
 
   prisonersOfBlack: Piece[];
@@ -33,7 +34,8 @@ export class GameService {
   constructor()
   {
     this.playerTurn = 0;
-    this.isCheck = false;
+    this.isCheckWhite = false;
+    this.isCheckBlack = false;
     this.isCheckmate = false;
     this.prisonersOfWhite = [];
     this.prisonersOfBlack = [];

@@ -873,12 +873,12 @@ export class Piece {
             && (currentBoard[i][j].piece.pieceName == '0'
             || currentBoard[i][j].piece.color != piece.color))
         {
-            if (currentBoard[i][j].piece.pieceName == 'B'
+            if (( currentBoard[i][j].piece.pieceName == 'B' || currentBoard[i][j].piece.pieceName == 'Q')
                 && piece.pieceName == 'k')
             {
                 return true;
             }
-            else if (currentBoard[i][j].piece.pieceName == 'b'
+            else if (( currentBoard[i][j].piece.pieceName == 'b' || currentBoard[i][j].piece.pieceName == 'b')
                     && piece.pieceName == 'K')
             {
                 return true;
@@ -898,12 +898,12 @@ export class Piece {
             && (currentBoard[i][j].piece.pieceName == '0'
             || currentBoard[i][j].piece.color != piece.color))
         {
-            if (currentBoard[i][j].piece.pieceName == 'B'
+            if (( currentBoard[i][j].piece.pieceName == 'B' || currentBoard[i][j].piece.pieceName == 'Q')
                 && piece.pieceName == 'k')
             {
                 return true;
             }
-            else if (currentBoard[i][j].piece.pieceName == 'b'
+            else if (( currentBoard[i][j].piece.pieceName == 'b' || currentBoard[i][j].piece.pieceName == 'b')
                     && piece.pieceName == 'K')
             {
                 return true;
@@ -923,12 +923,12 @@ export class Piece {
             && (currentBoard[i][j].piece.pieceName == '0'
             || currentBoard[i][j].piece.color != piece.color))
         {
-            if (currentBoard[i][j].piece.pieceName == 'B'
+            if (( currentBoard[i][j].piece.pieceName == 'B' || currentBoard[i][j].piece.pieceName == 'Q')
                 && piece.pieceName == 'k')
             {
                 return true;
             }
-            else if (currentBoard[i][j].piece.pieceName == 'b'
+            else if (( currentBoard[i][j].piece.pieceName == 'b' || currentBoard[i][j].piece.pieceName == 'b')
                     && piece.pieceName == 'K')
             {
                 return true;
@@ -948,12 +948,12 @@ export class Piece {
             && (currentBoard[i][j].piece.pieceName == '0'
             || currentBoard[i][j].piece.color != piece.color))
         {
-            if (currentBoard[i][j].piece.pieceName == 'B'
+            if (( currentBoard[i][j].piece.pieceName == 'B' || currentBoard[i][j].piece.pieceName == 'Q')
                 && piece.pieceName == 'k')
             {
                 return true;
             }
-            else if (currentBoard[i][j].piece.pieceName == 'b'
+            else if (( currentBoard[i][j].piece.pieceName == 'b' || currentBoard[i][j].piece.pieceName == 'b')
                     && piece.pieceName == 'K')
             {
                 return true;
@@ -973,12 +973,12 @@ export class Piece {
         i = x+1;
         for (i; i<8; i++)
         {
-            if (currentBoard[i][y].piece.pieceName == 'R'
+            if (( currentBoard[i][y].piece.pieceName == 'R' || currentBoard[i][y].piece.pieceName == 'Q' )
                 && piece.pieceName == 'k')
             {
                 return true;
             }
-            else if (currentBoard[i][y].piece.pieceName == 'r'
+            else if (( currentBoard[i][y].piece.pieceName == 'r' || currentBoard[i][y].piece.pieceName == 'q' )
                     && piece.pieceName == 'K')
             {
                 return true;
@@ -992,12 +992,12 @@ export class Piece {
         i = x-1;
         for (i; i>-1; i--)
         {
-            if (currentBoard[i][y].piece.pieceName == 'R'
+            if (( currentBoard[i][y].piece.pieceName == 'R' || currentBoard[i][y].piece.pieceName == 'Q' )
                 && piece.pieceName == 'k')
             {
                 return true;
             }
-            else if (currentBoard[i][y].piece.pieceName == 'r'
+            else if (( currentBoard[i][y].piece.pieceName == 'r' || currentBoard[i][y].piece.pieceName == 'q' )
                     && piece.pieceName == 'K')
             {
                 return true;
@@ -1012,12 +1012,12 @@ export class Piece {
         i = y+1;
         for (i; i<8; i++)
         {
-            if (currentBoard[i][y].piece.pieceName == 'R'
+            if (( currentBoard[i][y].piece.pieceName == 'R' || currentBoard[i][y].piece.pieceName == 'Q' )
                 && piece.pieceName == 'k')
             {
                 return true;
             }
-            else if (currentBoard[i][y].piece.pieceName == 'r'
+            else if (( currentBoard[i][y].piece.pieceName == 'r' || currentBoard[i][y].piece.pieceName == 'q' )
                     && piece.pieceName == 'K')
             {
                 return true;
@@ -1032,12 +1032,12 @@ export class Piece {
         i = y-1;
         for (i; i>-1; i--)
         {
-            if (currentBoard[x][i].piece.pieceName == 'R'
+            if (( currentBoard[i][y].piece.pieceName == 'R' || currentBoard[i][y].piece.pieceName == 'Q' )
                 && piece.pieceName == 'k')
             {
                 return true;
             }
-            else if (currentBoard[x][i].piece.pieceName == 'r'
+            else if (( currentBoard[i][y].piece.pieceName == 'r' || currentBoard[i][y].piece.pieceName == 'q' )
                     && piece.pieceName == 'K')
             {
                 return true;
@@ -1046,189 +1046,6 @@ export class Piece {
             {
                 break;
             }
-        }
-
-        // ----------------------------------------------------------------- //
-
-        // queen
-
-        // up queen
-        i = x+1;
-        for (i; i<8; i++)
-        {
-            if (currentBoard[i][y].piece.pieceName == 'Q'
-                && piece.pieceName == 'k')
-            {
-                return true;
-            }
-            else if (currentBoard[i][y].piece.pieceName == 'q'
-                    && piece.pieceName == 'K')
-            {
-                return true;
-            }
-            else if (currentBoard[i][y].piece.pieceName != '0')
-            {
-                break;
-            }
-        }
-        //down queen
-        i = x-1;
-        for (i; i>-1; i--)
-        {
-            if (currentBoard[i][y].piece.pieceName == 'Q'
-                && piece.pieceName == 'k')
-            {
-                return true;
-            }
-            else if (currentBoard[i][y].piece.pieceName == 'q'
-                    && piece.pieceName == 'K')
-            {
-                return true;
-            }
-            else if (currentBoard[i][y].piece.pieceName != '0')
-            {
-                break;
-            }
-        }
-
-        //right queen
-        i = y+1;
-        for (i; i<8; i++)
-        {
-            if (currentBoard[i][y].piece.pieceName == 'Q'
-                && piece.pieceName == 'k')
-            {
-                return true;
-            }
-            else if (currentBoard[i][y].piece.pieceName == 'q'
-                    && piece.pieceName == 'K')
-            {
-                return true;
-            }
-            else if (currentBoard[i][y].piece.pieceName != '0')
-            {
-                break;
-            }
-        }
-
-        //left queen
-        i = y-1;
-        for (i; i>-1; i--)
-        {
-            if (currentBoard[x][i].piece.pieceName == 'Q'
-                && piece.pieceName == 'k')
-            {
-                return true;
-            }
-            else if (currentBoard[x][i].piece.pieceName == 'q'
-                    && piece.pieceName == 'K')
-            {
-                return true;
-            }
-            else if (currentBoard[x][i].piece.pieceName != '0')
-            {
-                break;
-            }
-        }
-
-        // up-left (--)
-        i = x-1;
-        j = y-1;
-        while (i>-1 && j>-1
-            && (currentBoard[i][j].piece.pieceName == '0'
-            || currentBoard[i][j].piece.color != piece.color))
-        {
-            if (currentBoard[i][j].piece.pieceName == 'Q'
-                && piece.pieceName == 'k')
-            {
-                return true;
-            }
-            else if (currentBoard[i][j].piece.pieceName == 'q'
-                    && piece.pieceName == 'K')
-            {
-                return true;
-            }
-            else if (currentBoard[i][j].piece.pieceName != '0')
-            {
-                break;
-            }
-            i -= 1;
-            j -= 1;
-        }
-        
-        // up-right (-+)
-        i = x-1;
-        j = y+1;
-        while (i>-1 && j<8
-            && (currentBoard[i][j].piece.pieceName == '0'
-            || currentBoard[i][j].piece.color != piece.color))
-        {
-            if (currentBoard[i][j].piece.pieceName == 'Q'
-                && piece.pieceName == 'k')
-            {
-                return true;
-            }
-            else if (currentBoard[i][j].piece.pieceName == 'q'
-                    && piece.pieceName == 'K')
-            {
-                return true;
-            }
-            else if (currentBoard[i][j].piece.pieceName != '0')
-            {
-                break;
-            }
-            i -= 1;
-            j += 1;
-        }
-
-        // down-right (++)
-        i = x+1;
-        j = y+1;
-        while (i<8 && j<8
-            && (currentBoard[i][j].piece.pieceName == '0'
-            || currentBoard[i][j].piece.color != piece.color))
-        {
-            if (currentBoard[i][j].piece.pieceName == 'Q'
-                && piece.pieceName == 'k')
-            {
-                return true;
-            }
-            else if (currentBoard[i][j].piece.pieceName == 'q'
-                    && piece.pieceName == 'K')
-            {
-                return true;
-            }
-            else if (currentBoard[i][j].piece.pieceName != '0')
-            {
-                break;
-            }
-            i += 1;
-            j += 1;
-        }
-
-        // down-left (+-)
-        i = x+1;
-        j = y-1;
-        while (i<8 && j>-1
-            && (currentBoard[i][j].piece.pieceName == '0'
-            || currentBoard[i][j].piece.color != piece.color))
-        {
-            if (currentBoard[i][j].piece.pieceName == 'Q'
-                && piece.pieceName == 'k')
-            {
-                return true;
-            }
-            else if (currentBoard[i][j].piece.pieceName == 'q'
-                    && piece.pieceName == 'K')
-            {
-                return true;
-            }
-            else if (currentBoard[i][j].piece.pieceName != '0')
-            {
-                break;
-            }
-            i += 1;
-            j -= 1;
         }
 
         // ----------------------------------------------------------------- //
