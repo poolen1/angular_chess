@@ -43,12 +43,14 @@ export class SquareComponent implements OnInit {
 
       if (to.canDrop)
       {
-        this._gameService.moveCompleted(event);
-
         from.piece.hasMoved = true;
 
         if (event.previousContainer !== event.container) 
         {
+          if (to.piece.pieceName != '0')
+          {
+            this.capturePiece(from.piece, to.piece);
+          }
           to.piece = from.piece;
           from.piece = new Piece('0', from.arrayRow, from.arrayCol);
 
@@ -59,10 +61,18 @@ export class SquareComponent implements OnInit {
         {
           to.piece = from.piece;
         }
+
+        this._gameService.moveCompleted(event);
       }
     }
   }
   
   // ======================================================================== //
 
+  capturePiece(capturer: Piece, prisoner: Piece)
+  {
+    this._gameService.capturePiece(capturer, prisoner);
+  }
+  
+  // ======================================================================== //
 }

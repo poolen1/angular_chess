@@ -52,6 +52,13 @@ export class GameService {
 
   moveCompleted(move: CdkDragDrop<BoardSpace>)
   {
+    this.moveCompletedSource.next(move);
+  }
+
+  // ======================================================================== //
+
+  updatePlayerTurn()
+  {
     if (this.playerTurn == 0)
     {
       this.playerTurn += 1;
@@ -60,8 +67,6 @@ export class GameService {
     {
       this.playerTurn -= 1;
     }
-
-    this.moveCompletedSource.next(move);
   }
 
   // ======================================================================== //
@@ -99,7 +104,7 @@ export class GameService {
       }
       else if (this.playerTurn == 1)
       {
-        piece = this.findPiece(currentBoard, 'K');
+        piece = this.findPiece(currentBoard, 'k');
       }
     }
     if (!x)
@@ -110,8 +115,13 @@ export class GameService {
     {
       y = piece.arrayCol;
     }
+
+    console.log("verifying: ", piece, x, y);
+    console.log("board: ", currentBoard);
     
     check = piece.verifyCheck(currentBoard, piece, x, y);
+
+    console.log("verified check: ", check);
 
     if (check)
     {

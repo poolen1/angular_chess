@@ -20,6 +20,7 @@ export class BoardComponent implements OnInit {
   bitBoards: Bitboard[];
   gamePieces: Piece[];
   playerTurnDisplay: string;
+  checkDisplay: string;
   prisonersOfWhite: Piece[];
   prisonersOfBlack: Piece[];
 
@@ -63,36 +64,46 @@ export class BoardComponent implements OnInit {
             this.updateBitboard(moveEvent);
           }
           // if capture, update captured piece
-          if (toPiece.pieceName)
+          if (toPiece.pieceName != '0')
           {
-            this.capturePiece(fromPiece, toPiece);
+            this.getCapturedPieces();
             this.updateBitboard(moveEvent);
           }
-
-          this.enableDisableDragSquares();
-          this.disableDropSquares();
-          this.getPlayerTurn();  
 
           if (this._gameService.playerTurn == 0)
           {
             this._gameService.isCheckWhite = this._gameService.verifyCheck(this.gameBoard);
-            if (this._gameService.isCheckWhite)
-            {
-              if (this._gameService.isCheckmate)
-              {
-                //endgame logic
-              }
-            }
+            this.getCheckStatus();
           }
-          if (this._gameService.playerTurn == 1)
+          else if (this._gameService.playerTurn == 1)
           {
             this._gameService.isCheckBlack = this._gameService.verifyCheck(this.gameBoard);
-            if (this._gameService.isCheckBlack)
+            this.getCheckStatus();
+          }
+
+          this._gameService.updatePlayerTurn();
+          this.getPlayerTurn();  
+          this.enableDisableDragSquares();
+          this.disableDropSquares();
+
+          if (this._gameService.playerTurn == 0)
+          {
+            this._gameService.isCheckWhite = this._gameService.verifyCheck(this.gameBoard);
+            this.getCheckStatus();
+
+            if (this._gameService.isCheckmate)
             {
-              if (this._gameService.isCheckmate)
-              {
-                //endgame logic
-              }
+              //endgame logic
+            }
+          }
+          else if (this._gameService.playerTurn == 1)
+          {
+            this._gameService.isCheckBlack = this._gameService.verifyCheck(this.gameBoard);
+            this.getCheckStatus();
+
+            if (this._gameService.isCheckmate)
+            {
+              //endgame logic
             }
           }
         }
@@ -275,6 +286,8 @@ export class BoardComponent implements OnInit {
 
   getPlayerTurn(): void
   {
+    console.log("getplayerturn");
+    
     if (this._gameService.playerTurn == 0)
     {
       this.playerTurnDisplay = "White to Move";
@@ -284,21 +297,31 @@ export class BoardComponent implements OnInit {
       this.playerTurnDisplay = "Black to Move";
     }
   }
+
+  // ======================================================================== //
+
+  getCheckStatus(): void
+  {
+    if (this._gameService.isCheckBlack == true)
+    {
+      this.checkDisplay = "Black king is in check!";
+    }
+    else if (this._gameService.isCheckWhite == true)
+    {
+      this.checkDisplay = "White king is in check!";
+    }
+    else
+    {
+      this.checkDisplay = "";
+    }
+  }
   
   // ======================================================================== //
 
-  capturePiece(capturer: Piece, prisoner: Piece)
+  getCapturedPieces()
   {
-    this._gameService.capturePiece(capturer, prisoner);
-
-    if (prisoner.color == 1)
-    {
-      this.prisonersOfWhite.push(prisoner);
-    }
-    else if (prisoner.color == 0)
-    {
-      this.prisonersOfBlack.push(prisoner);
-    }
+    this.prisonersOfBlack = this._gameService.prisonersOfBlack;
+    this.prisonersOfWhite = this._gameService.prisonersOfWhite;
   }
   
   // ======================================================================== //

@@ -627,76 +627,94 @@ export class Piece {
     getKingMoves(currentBoard: any, piece: Piece, x: number, y: number)
     {
         //up
-        let isCheck = this.verifyCheck(currentBoard, piece, x-1, y);
-        if ((x-1)>-1 && isCheck == false 
-            && (currentBoard[x-1][y].piece.pieceName == '0'
+        let isCheck: boolean;
+
+        if ((x-1)>-1 && (currentBoard[x-1][y].piece.pieceName == '0'
             || currentBoard[x-1][y].piece.color != piece.color))
         {
-            currentBoard[x-1][y].canDrop = true;
-        }
-
-        //down
-        isCheck = this.verifyCheck(currentBoard, piece, x+1, y);
-        if ((x+1)<8 && isCheck == false 
-            && (currentBoard[x+1][y].piece.pieceName == '0'
-            || currentBoard[x+1][y].piece.color != piece.color))
-        {
-            currentBoard[x+1][y].canDrop = true;
-        }
-
-        //right
-        isCheck = this.verifyCheck(currentBoard, piece, x, y+1);
-        if ((y+1)<8 && isCheck == false 
-            && (currentBoard[x][y+1].piece.pieceName == '0'
-            || currentBoard[x][y+1].piece.color != piece.color))
-        {
-            currentBoard[x][y+1].canDrop = true;
-        }
-
-        //left
-        isCheck = this.verifyCheck(currentBoard, piece, x, y-1);
-        if ((y-1)>-1 && isCheck == false 
-            && (currentBoard[x][y-1].piece.pieceName == '0'
-            || currentBoard[x][y-1].piece.color != piece.color))
-        {
-            currentBoard[x][y-1].canDrop = true;
-        }
-
-        //up left
-        isCheck = this.verifyCheck(currentBoard, piece, x-1, y-1);
-        if ((x-1)>-1 && (y-1)>-1 && isCheck == false 
-            && (currentBoard[x-1][y-1].piece.pieceName == '0'
-            || currentBoard[x-1][y-1].piece.color != piece.color))
-        {
-            currentBoard[x-1][y-1].canDrop = true;
-        }
-
-        //up right
-        isCheck = this.verifyCheck(currentBoard, piece, x-1, y+1);
-        if ((x-1)>-1 && (y+1)<8 && isCheck == false 
-            && (currentBoard[x-1][y+1].piece.pieceName == '0'
-            || currentBoard[x-1][y+1].piece.color != piece.color))
-        {
-            currentBoard[x-1][y+1].canDrop = true;
+            isCheck = this.verifyCheck(currentBoard, piece, x-1, y);
+            if (isCheck == false )
+            {
+                currentBoard[x-1][y].canDrop = true;
+            }
         }
         
 
-        //down left
-        isCheck = this.verifyCheck(currentBoard, piece, x+1, y-1);
-        if ((x+1)<8 && (y-1)>-1 && isCheck == false 
-            && (currentBoard[x+1][y-1].piece.pieceName == '0'
-            || currentBoard[x+1][y-1].piece.color != piece.color))
+        //down
+        if ((x+1)<8 && (currentBoard[x+1][y].piece.pieceName == '0'
+            || currentBoard[x+1][y].piece.color != piece.color))
         {
-            currentBoard[x+1][y-1].canDrop = true;
+            isCheck = this.verifyCheck(currentBoard, piece, x+1, y);
+            if (isCheck == false)
+            {
+                currentBoard[x+1][y].canDrop = true;
+            }
         }
 
+        //right
+        if ((y+1)<8 && (currentBoard[x][y+1].piece.pieceName == '0'
+            || currentBoard[x][y+1].piece.color != piece.color))
+        {
+            isCheck = this.verifyCheck(currentBoard, piece, x, y+1);
+            if (isCheck == false)
+            {
+                currentBoard[x][y+1].canDrop = true;
+            }
+        }
+
+        //left
+        if ((y-1)>-1 && (currentBoard[x][y-1].piece.pieceName == '0'
+            || currentBoard[x][y-1].piece.color != piece.color))
+        {
+            isCheck = this.verifyCheck(currentBoard, piece, x, y-1);
+            if (isCheck == false)
+            {
+                currentBoard[x][y-1].canDrop = true;
+            }
+        }
+
+        //up left
+        if ((x-1)>-1 && (currentBoard[x-1][y-1].piece.pieceName == '0'
+            || currentBoard[x-1][y-1].piece.color != piece.color))
+        {
+            isCheck = this.verifyCheck(currentBoard, piece, x-1, y-1);
+            if (isCheck == false)
+            {
+                currentBoard[x-1][y-1].canDrop = true;
+            }
+        }
+
+        //up right
+        if ((x-1)>-1 && (currentBoard[x-1][y+1].piece.pieceName == '0'
+            || currentBoard[x-1][y+1].piece.color != piece.color))
+        {
+            isCheck = this.verifyCheck(currentBoard, piece, x-1, y+1);
+            if ((y+1)<8 && isCheck == false)
+            {
+                currentBoard[x-1][y+1].canDrop = true;
+            }
+        }
+
+        //down left
+        if ((x+1)<8 && (currentBoard[x+1][y-1].piece.pieceName == '0'
+            || currentBoard[x+1][y-1].piece.color != piece.color))
+        {
+            isCheck = this.verifyCheck(currentBoard, piece, x+1, y-1);
+            if (isCheck == false)
+            {
+                currentBoard[x+1][y-1].canDrop = true;
+            }
+        }
+        
         //down right
-        isCheck = this.verifyCheck(currentBoard, piece, x+1, y+1);
-        if ((x+1)<8 && (y+1)<8 &&  isCheck == false 
-            && (currentBoard[x+1][y+1].piece.pieceName == '0'
+        if ((x+1)<8 && (currentBoard[x+1][y+1].piece.pieceName == '0'
             || currentBoard[x+1][y+1].piece.color != piece.color))
         {
-            currentBoard[x+1][y+1].canDrop = true;
+            isCheck = this.verifyCheck(currentBoard, piece, x+1, y+1);
+            if ((y+1)<8 &&  isCheck == false)
+            {
+                currentBoard[x+1][y+1].canDrop = true;
+            }
         }
     }
 
@@ -731,6 +749,8 @@ export class Piece {
         let i: number;
         let j: number;
 
+        console.log("verify piece: ", piece, x, y);
+
         if (piece == undefined)
         {
             if (this.color == 0)
@@ -745,6 +765,8 @@ export class Piece {
             x = piece.arrayRow;
             y = piece.arrayCol;
         }
+
+        console.log("piece: ", piece);
 
         if (x>7 || x<0 || y>7 || y<0)
         {
@@ -878,7 +900,7 @@ export class Piece {
             {
                 return true;
             }
-            else if (( currentBoard[i][j].piece.pieceName == 'b' || currentBoard[i][j].piece.pieceName == 'b')
+            else if (( currentBoard[i][j].piece.pieceName == 'b' || currentBoard[i][j].piece.pieceName == 'q')
                     && piece.pieceName == 'K')
             {
                 return true;
@@ -903,7 +925,7 @@ export class Piece {
             {
                 return true;
             }
-            else if (( currentBoard[i][j].piece.pieceName == 'b' || currentBoard[i][j].piece.pieceName == 'b')
+            else if (( currentBoard[i][j].piece.pieceName == 'b' || currentBoard[i][j].piece.pieceName == 'q')
                     && piece.pieceName == 'K')
             {
                 return true;
@@ -928,7 +950,7 @@ export class Piece {
             {
                 return true;
             }
-            else if (( currentBoard[i][j].piece.pieceName == 'b' || currentBoard[i][j].piece.pieceName == 'b')
+            else if (( currentBoard[i][j].piece.pieceName == 'b' || currentBoard[i][j].piece.pieceName == 'q')
                     && piece.pieceName == 'K')
             {
                 return true;
@@ -944,22 +966,28 @@ export class Piece {
         // down-left (+-)
         i = x+1;
         j = y-1;
-        while (i<8 && j>-1
-            && (currentBoard[i][j].piece.pieceName == '0'
-            || currentBoard[i][j].piece.color != piece.color))
+        while (i<8 && j>-1)
         {
+            console.log("pieces: ", piece.pieceName, currentBoard[i][j].piece.pieceName);
+            console.log("row: ", currentBoard[i]);
+            console.log("space: ", currentBoard[i][j]);
+            console.log("piece: ", currentBoard[i][j].piece);
+            console.log("piecename: ", currentBoard[i][j].piece.pieceName);
+            console.log("i, j: ", i, j);
             if (( currentBoard[i][j].piece.pieceName == 'B' || currentBoard[i][j].piece.pieceName == 'Q')
                 && piece.pieceName == 'k')
             {
+                console.log("check true");
                 return true;
             }
-            else if (( currentBoard[i][j].piece.pieceName == 'b' || currentBoard[i][j].piece.pieceName == 'b')
+            else if (( currentBoard[i][j].piece.pieceName == 'b' || currentBoard[i][j].piece.pieceName == 'q')
                     && piece.pieceName == 'K')
             {
                 return true;
             }
             else if (currentBoard[i][j].piece.pieceName != '0')
             {
+                console.log("not '0'");
                 break;
             }
             i += 1;
@@ -969,11 +997,17 @@ export class Piece {
         // ----------------------------------------------------------------- //
 
         // rook
-        // up rook
+        // down rook
         i = x+1;
         for (i; i<8; i++)
         {
-            if (( currentBoard[i][y].piece.pieceName == 'R' || currentBoard[i][y].piece.pieceName == 'Q' )
+            console.log("downrook pieceName: ", currentBoard[i][y].piece.pieceName);
+            if (currentBoard[i][y].piece.pieceName != '0')
+            {
+                console.log("downrook not 0");
+                break;
+            }
+            else if (( currentBoard[i][y].piece.pieceName == 'R' || currentBoard[i][y].piece.pieceName == 'Q' )
                 && piece.pieceName == 'k')
             {
                 return true;
@@ -983,16 +1017,18 @@ export class Piece {
             {
                 return true;
             }
-            else if (currentBoard[i][y].piece.pieceName != '0')
-            {
-                break;
-            }
         }
-        //down rook
+        //up rook
         i = x-1;
         for (i; i>-1; i--)
         {
-            if (( currentBoard[i][y].piece.pieceName == 'R' || currentBoard[i][y].piece.pieceName == 'Q' )
+            console.log("uprook pieceName: ", currentBoard[i][y].piece.pieceName);
+            if (currentBoard[i][y].piece.pieceName != '0')
+            {
+                console.log("uprook not 0");
+                break;
+            }
+            else if (( currentBoard[i][y].piece.pieceName == 'R' || currentBoard[i][y].piece.pieceName == 'Q' )
                 && piece.pieceName == 'k')
             {
                 return true;
@@ -1001,10 +1037,6 @@ export class Piece {
                     && piece.pieceName == 'K')
             {
                 return true;
-            }
-            else if (currentBoard[i][y].piece.pieceName != '0')
-            {
-                break;
             }
         }
 
