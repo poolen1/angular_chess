@@ -65,6 +65,10 @@ export class SquareComponent implements OnInit {
         this._gameService.moveCompleted(event);
       }
     }
+    else
+    {
+      this._gameService.moveCompleted(event);
+    }
   }
   
   // ======================================================================== //

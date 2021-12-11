@@ -42,6 +42,7 @@ export class BoardComponent implements OnInit {
       
       if (selection)
       {
+        this.disableDropSquares();
         this.enableDropSquares(selection);
       }
     });
@@ -55,6 +56,8 @@ export class BoardComponent implements OnInit {
         let to: BoardSpace = moveEvent.container.data;
         let toPiece: Piece = to.piece;
         let fromPiece: Piece = from.piece;
+
+        this.disableDropSquares();
   
         if (from != to)
         {
@@ -84,7 +87,7 @@ export class BoardComponent implements OnInit {
           this._gameService.updatePlayerTurn();
           this.getPlayerTurn();  
           this.enableDisableDragSquares();
-          this.disableDropSquares();
+          
 
           if (this._gameService.playerTurn == 0)
           {
@@ -94,6 +97,7 @@ export class BoardComponent implements OnInit {
             if (this._gameService.isCheckmate)
             {
               //endgame logic
+              console.log("checkmate");
             }
           }
           else if (this._gameService.playerTurn == 1)
@@ -104,6 +108,7 @@ export class BoardComponent implements OnInit {
             if (this._gameService.isCheckmate)
             {
               //endgame logic
+              console.log("checkmate");
             }
           }
         }
@@ -267,12 +272,15 @@ export class BoardComponent implements OnInit {
 
     this.gameBoard = piece.getLegalMoves(this.gameBoard, piece, x, y);
 
+    console.log("drop squares: ", this.gameBoard);
+
   }
 
   // ======================================================================== //
   
   disableDropSquares(): void
   {
+    console.log("disabled drop squares");
     for (let i=0; i<8; i++)
     {
       for (let j=0; j<8; j++)

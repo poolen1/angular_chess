@@ -426,9 +426,11 @@ export class Piece {
             && (currentBoard[i][j].piece.pieceName == '0'
             || currentBoard[i][j].piece.color != piece.color))
         {
+            testBoard = JSON.parse(JSON.stringify(currentBoard));
+
             tempPiece = currentBoard[i][j].piece;
-            testBoard[i][j].piece= piece;
-            testBoard[x][y].piece= tempPiece;
+            testBoard[i][j].piece = piece;
+            testBoard[x][y].piece = tempPiece;
             causesCheck = this.verifyCheck(testBoard);
 
             if (causesCheck == false)
@@ -451,6 +453,8 @@ export class Piece {
             && (currentBoard[i][j].piece.pieceName == '0'
             || currentBoard[i][j].piece.color != piece.color))
         {
+            testBoard = JSON.parse(JSON.stringify(currentBoard));
+
             tempPiece = currentBoard[i][j].piece;
             testBoard[i][j].piece= piece;
             testBoard[x][y].piece= tempPiece;
@@ -476,6 +480,8 @@ export class Piece {
             && (currentBoard[i][j].piece.pieceName == '0'
             || currentBoard[i][j].piece.color != piece.color))
         {
+            testBoard = JSON.parse(JSON.stringify(currentBoard));
+
             tempPiece = currentBoard[i][j].piece;
             testBoard[i][j].piece= piece;
             testBoard[x][y].piece= tempPiece;
@@ -501,6 +507,8 @@ export class Piece {
             && (currentBoard[i][j].piece.pieceName == '0'
             || currentBoard[i][j].piece.color != piece.color))
         {
+            testBoard = JSON.parse(JSON.stringify(currentBoard));
+            
             tempPiece = currentBoard[i][j].piece;
             testBoard[i][j].piece= piece;
             testBoard[x][y].piece= tempPiece;
