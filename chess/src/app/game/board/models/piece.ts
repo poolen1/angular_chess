@@ -778,17 +778,19 @@ export class Piece {
         // pawn
         if (piece.color == 0)
         {
-            if ((x-1)>-1 && (y+1)< 8 && currentBoard[x-1][y+1].piece.pieceName == 'p'
-            || (y-1)>-1 && currentBoard[x-1][y-1].piece.pieceName == 'p')
+            if (((x-1)>-1 && (y+1)< 8 && currentBoard[x-1][y+1].piece.pieceName == 'p')
+            || ((y-1)>-1 && currentBoard[x-1][y-1].piece.pieceName == 'p'))
             {
+                console.log("pawn true");
                 return true;
             }
         }
         else if (piece.color == 1)
         {
-            if ((x+1)<8 && (y+1)<8 && currentBoard[x+1][y+1].piece.pieceName == 'P'
-            || (y-1)>-1 && currentBoard[x+1][y-1].piece.pieceName == 'P')
+            if (((x+1)<8 && (y+1)<8 && currentBoard[x+1][y+1].piece.pieceName == 'P')
+            || ((y-1)>-1 && currentBoard[x+1][y-1].piece.pieceName == 'P'))
             {
+                console.log("pawn true");
                 return true;
             }
         }
@@ -800,10 +802,12 @@ export class Piece {
         {
             if (piece.pieceName == 'k' && currentBoard[x-2][y-1].piece.pieceName == 'N')
             {
+                console.log("knight true");
                 return true;
             }
             else if (piece.pieceName == 'K' && currentBoard[x-2][y-1].piece.pieceName == 'n')
             {
+                console.log("knight true");
                 return true;
             }
         }
@@ -811,10 +815,12 @@ export class Piece {
         {
             if (piece.pieceName == 'k' && currentBoard[x-2][y+1].piece.pieceName == 'N')
             {
+                console.log("knight true");
                 return true;
             }
             else if (piece.pieceName == 'K' && currentBoard[x-2][y+1].piece.pieceName == 'n')
             {
+                console.log("knight true");
                 return true;
             }
         }
@@ -822,10 +828,12 @@ export class Piece {
         {
             if (piece.pieceName == 'k' && currentBoard[x-1][y-2].piece.pieceName == 'N')
             {
+                console.log("knight true");
                 return true;
             }
             else if (piece.pieceName == 'K' && currentBoard[x-1][y-2].piece.pieceName == 'n')
             {
+                console.log("knight true");
                 return true;
             }
         }
@@ -833,10 +841,12 @@ export class Piece {
         {
             if (piece.pieceName == 'k' && currentBoard[x-1][y+2].piece.pieceName == 'N')
             {
+                console.log("knight true");
                 return true;
             }
             else if (piece.pieceName == 'K' && currentBoard[x-1][y+2].piece.pieceName == 'n')
             {
+                console.log("knight true");
                 return true;
             }
         }
@@ -844,10 +854,12 @@ export class Piece {
         {
             if (piece.pieceName == 'k' && currentBoard[x+1][y-2].piece.pieceName == 'N')
             {
+                console.log("knight true");
                 return true;
             }
             else if (piece.pieceName == 'K' && currentBoard[x+1][y-2].piece.pieceName == 'n')
             {
+                console.log("knight true");
                 return true;
             }
         }
@@ -855,10 +867,12 @@ export class Piece {
         {
             if (piece.pieceName == 'k' && currentBoard[x+1][y+2].piece.pieceName == 'N')
             {
+                console.log("knight true");
                 return true;
             }
             else if (piece.pieceName == 'K' && currentBoard[x+1][y+2].piece.pieceName == 'n')
             {
+                console.log("knight true");
                 return true;
             }
         }
@@ -866,10 +880,12 @@ export class Piece {
         {
             if (piece.pieceName == 'k' && currentBoard[x+2][y-1].piece.pieceName == 'N')
             {
+                console.log("knight true");
                 return true;
             }
             else if (piece.pieceName == 'K' && currentBoard[x+2][y-1].piece.pieceName == 'n')
             {
+                console.log("knight true");
                 return true;
             }
         }
@@ -877,10 +893,12 @@ export class Piece {
         {
             if (piece.pieceName == 'k' && currentBoard[x+2][y+1].piece.pieceName == 'N')
             {
+                console.log("knight true");
                 return true;
             }
             else if (piece.pieceName == 'K' && currentBoard[x+2][y+1].piece.pieceName == 'n')
             {
+                console.log("knight true");
                 return true;
             }
         }
@@ -891,18 +909,18 @@ export class Piece {
         // up-left (--)
         i = x-1;
         j = y-1;
-        while (i>-1 && j>-1
-            && (currentBoard[i][j].piece.pieceName == '0'
-            || currentBoard[i][j].piece.color != piece.color))
+        while (i>-1 && j>-1)
         {
             if (( currentBoard[i][j].piece.pieceName == 'B' || currentBoard[i][j].piece.pieceName == 'Q')
                 && piece.pieceName == 'k')
             {
+                console.log("bishop true");
                 return true;
             }
             else if (( currentBoard[i][j].piece.pieceName == 'b' || currentBoard[i][j].piece.pieceName == 'q')
                     && piece.pieceName == 'K')
             {
+                console.log("bishop true");
                 return true;
             }
             else if (currentBoard[i][j].piece.pieceName != '0')
@@ -916,18 +934,18 @@ export class Piece {
         // up-right (-+)
         i = x-1;
         j = y+1;
-        while (i>-1 && j<8
-            && (currentBoard[i][j].piece.pieceName == '0'
-            || currentBoard[i][j].piece.color != piece.color))
+        while (i>-1 && j<8)
         {
             if (( currentBoard[i][j].piece.pieceName == 'B' || currentBoard[i][j].piece.pieceName == 'Q')
                 && piece.pieceName == 'k')
             {
+                console.log("bishop true");
                 return true;
             }
             else if (( currentBoard[i][j].piece.pieceName == 'b' || currentBoard[i][j].piece.pieceName == 'q')
                     && piece.pieceName == 'K')
             {
+                console.log("bishop true");
                 return true;
             }
             else if (currentBoard[i][j].piece.pieceName != '0')
@@ -948,11 +966,13 @@ export class Piece {
             if (( currentBoard[i][j].piece.pieceName == 'B' || currentBoard[i][j].piece.pieceName == 'Q')
                 && piece.pieceName == 'k')
             {
+                console.log("bishop true");
                 return true;
             }
             else if (( currentBoard[i][j].piece.pieceName == 'b' || currentBoard[i][j].piece.pieceName == 'q')
                     && piece.pieceName == 'K')
             {
+                console.log("bishop true");
                 return true;
             }
             else if (currentBoard[i][j].piece.pieceName != '0')
@@ -968,21 +988,16 @@ export class Piece {
         j = y-1;
         while (i<8 && j>-1)
         {
-            console.log("pieces: ", piece.pieceName, currentBoard[i][j].piece.pieceName);
-            console.log("row: ", currentBoard[i]);
-            console.log("space: ", currentBoard[i][j]);
-            console.log("piece: ", currentBoard[i][j].piece);
-            console.log("piecename: ", currentBoard[i][j].piece.pieceName);
-            console.log("i, j: ", i, j);
             if (( currentBoard[i][j].piece.pieceName == 'B' || currentBoard[i][j].piece.pieceName == 'Q')
                 && piece.pieceName == 'k')
             {
-                console.log("check true");
+                console.log("bishop true");
                 return true;
             }
             else if (( currentBoard[i][j].piece.pieceName == 'b' || currentBoard[i][j].piece.pieceName == 'q')
                     && piece.pieceName == 'K')
             {
+                console.log("bishop true");
                 return true;
             }
             else if (currentBoard[i][j].piece.pieceName != '0')
@@ -1001,42 +1016,45 @@ export class Piece {
         i = x+1;
         for (i; i<8; i++)
         {
-            console.log("downrook pieceName: ", currentBoard[i][y].piece.pieceName);
-            if (currentBoard[i][y].piece.pieceName != '0')
+            if (( currentBoard[i][y].piece.pieceName == 'R' || currentBoard[i][y].piece.pieceName == 'Q' )
+                && piece.pieceName == 'k')
+            {
+                console.log("rook true");
+                return true;
+            }
+            else if (( currentBoard[i][y].piece.pieceName == 'r' || currentBoard[i][y].piece.pieceName == 'q' )
+                    && piece.pieceName == 'K')
+            {
+                console.log("rook true");
+                return true;
+            }
+            else if (currentBoard[i][y].piece.pieceName != '0')
             {
                 console.log("downrook not 0");
                 break;
             }
-            else if (( currentBoard[i][y].piece.pieceName == 'R' || currentBoard[i][y].piece.pieceName == 'Q' )
-                && piece.pieceName == 'k')
-            {
-                return true;
-            }
-            else if (( currentBoard[i][y].piece.pieceName == 'r' || currentBoard[i][y].piece.pieceName == 'q' )
-                    && piece.pieceName == 'K')
-            {
-                return true;
-            }
         }
+        
         //up rook
         i = x-1;
         for (i; i>-1; i--)
         {
-            console.log("uprook pieceName: ", currentBoard[i][y].piece.pieceName);
-            if (currentBoard[i][y].piece.pieceName != '0')
-            {
-                console.log("uprook not 0");
-                break;
-            }
-            else if (( currentBoard[i][y].piece.pieceName == 'R' || currentBoard[i][y].piece.pieceName == 'Q' )
+            if (( currentBoard[i][y].piece.pieceName == 'R' || currentBoard[i][y].piece.pieceName == 'Q' )
                 && piece.pieceName == 'k')
             {
+                console.log("rook true");
                 return true;
             }
             else if (( currentBoard[i][y].piece.pieceName == 'r' || currentBoard[i][y].piece.pieceName == 'q' )
                     && piece.pieceName == 'K')
             {
+                console.log("rook true");
                 return true;
+            }
+            else if (currentBoard[i][y].piece.pieceName != '0')
+            {
+                console.log("uprook not 0");
+                break;
             }
         }
 
@@ -1044,17 +1062,19 @@ export class Piece {
         i = y+1;
         for (i; i<8; i++)
         {
-            if (( currentBoard[i][y].piece.pieceName == 'R' || currentBoard[i][y].piece.pieceName == 'Q' )
+            if (( currentBoard[x][i].piece.pieceName == 'R' || currentBoard[x][i].piece.pieceName == 'Q' )
                 && piece.pieceName == 'k')
             {
+                console.log("r rook true");
                 return true;
             }
-            else if (( currentBoard[i][y].piece.pieceName == 'r' || currentBoard[i][y].piece.pieceName == 'q' )
+            else if (( currentBoard[x][i].piece.pieceName == 'r' || currentBoard[x][i].piece.pieceName == 'q' )
                     && piece.pieceName == 'K')
             {
+                console.log("r rook true");
                 return true;
             }
-            else if (currentBoard[i][y].piece.pieceName != '0')
+            else if (currentBoard[x][i].piece.pieceName != '0')
             {
                 break;
             }
@@ -1064,14 +1084,16 @@ export class Piece {
         i = y-1;
         for (i; i>-1; i--)
         {
-            if (( currentBoard[i][y].piece.pieceName == 'R' || currentBoard[i][y].piece.pieceName == 'Q' )
+            if (( currentBoard[x][i].piece.pieceName == 'R' || currentBoard[x][i].piece.pieceName == 'Q' )
                 && piece.pieceName == 'k')
             {
+                console.log("L rook true");
                 return true;
             }
-            else if (( currentBoard[i][y].piece.pieceName == 'r' || currentBoard[i][y].piece.pieceName == 'q' )
+            else if (( currentBoard[x][i].piece.pieceName == 'r' || currentBoard[x][i].piece.pieceName == 'q' )
                     && piece.pieceName == 'K')
             {
+                console.log("L rook true");
                 return true;
             }
             else if (currentBoard[x][i].piece.pieceName != '0')
